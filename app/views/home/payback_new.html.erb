@@ -1,0 +1,11 @@
+<div class="title">返済</div>
+<div class="content">
+  <%= form_for Payment.new do |f| %>
+    <%= f.label :amount, "返済金額" %>
+    <%= f.number_field :amount, :required => true %>
+    <%= f.label :note, "メモ" %>
+    <%= f.text_area :note %>
+    <div class="text">上記のとおり、返済いたしました</div>
+    <%= f.submit "確定する" %>
+  <% end %>
+</div>

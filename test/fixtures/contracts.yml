@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  debit: MyText
+  credit: MyText
+  amount: 1
+  status: MyText
+
+two:
+  debit: MyText
+  credit: MyText
+  amount: 1
+  status: MyText
