@@ -1,2 +1,19 @@
 <div class="title">友達管理</div>
-<div class="content"></div>
+<div class="content">
+  <%= button_to '友達追加', {action: "friend_new"}, :method=>:get %>
+</div>
+
+<h1>ユーザ一覧</h1>
+<% @users.each do |user| %>
+      <div>
+        [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
+      </div>
+<% end %>
+<hr />
+<h1>友達一覧</h1>
+<% @friends.each do |friend| %>
+      <div>
+        <%=@users.find(friend.follower).name %> -> <%=@users.find(friend.followee).name %>  <%= link_to("契約", contract_new_path(friend_id: friend.followee)) %>
+      </div>
+<% end %>
+<hr />

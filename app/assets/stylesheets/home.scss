@@ -16,12 +16,18 @@ body{
   background-color: #fcfcfc;
 }
 
-input,textarea{
+input,textarea,select{
   width: 100%;
   height:$button-height;
   font-size:$font-size;
+  background-color: #ffffff;
   margin-bottom: 1em;
+  padding: 0.5em;
   box-sizing: border-box;
+  border-radius: 2vw;
+  border: 1px solid #cccccc;
+  -webkit-touch-callout:none;
+  -webkit-appearance: none;
 }
 
 button,input[type="button"],input[type="submit"] {
@@ -29,7 +35,6 @@ button,input[type="button"],input[type="submit"] {
   height:$button-height;
   font-size:$font-size;
   border-radius: 2vw;
-  appearance:button;
   border: none;
   background-color:#51a1a2;
   color: #ffffff;
@@ -41,7 +46,7 @@ button,input[type="button"],input[type="submit"] {
 
 
 .text{
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 
 .title{

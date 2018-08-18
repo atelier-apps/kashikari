@@ -1,2 +1,8 @@
 <div class="title">友達追加</div>
-<div class="content"></div>
+<div class="content">
+  <%= form_for Friend.new do |f| %>
+    <%= f.label :followee, "追加する友達" %>
+    <%= f.text_field :followee, :required => true %>
+    <%= f.submit "確定する", data: { disable_with: '追加中', remote: true } %>
+  <% end %>
+</div>

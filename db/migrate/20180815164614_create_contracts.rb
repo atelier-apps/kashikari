@@ -5,6 +5,7 @@ class CreateContracts < ActiveRecord::Migration[5.2]
       t.text :credit
       t.integer :amount
       t.text :status
+      t.text :note
 
       t.timestamps
     end

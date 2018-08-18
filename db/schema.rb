@@ -10,25 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_15_164853) do
+ActiveRecord::Schema.define(version: 2018_08_18_093726) do
 
   create_table "contracts", force: :cascade do |t|
     t.text "debit"
     t.text "credit"
     t.integer "amount"
     t.text "status"
+    t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "note"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.text "contractId"
-    t.integer "amount"
+  create_table "friends", force: :cascade do |t|
+    t.bigint "follower"
+    t.bigint "followee"
     t.text "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "contract_id"
+    t.integer "amount"
+    t.text "status"
     t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.text "name"
+    t.text "account"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
