@@ -1,0 +1,14 @@
+<div class="title">返済合意</div>
+<div class="content">
+[<%=@payment.id %>] <%=@payment.amount %>
+
+<% if @payment.status=="ACCEPTED" %>
+<%= render partial: "accepted" %>
+<% end %>
+<% if @payment.status=="REJECTED" %>
+<%= render partial: "rejected" %>
+<% end %>
+<% if @payment.status=="READ" %>
+<%= render partial: "unjudged" %>
+<% end %>
+</div>

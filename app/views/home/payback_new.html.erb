@@ -5,7 +5,8 @@
     <%= f.number_field :amount, :required => true %>
     <%= f.label :note, "メモ" %>
     <%= f.text_area :note %>
+    <%= f.hidden_field :contract_id, value: @contract_id %>
     <div class="text">上記のとおり、返済いたしました</div>
-    <%= f.submit "確定する" %>
+    <%= f.submit "確定する", data: { disable_with: '追加中' }  %>
   <% end %>
 </div>

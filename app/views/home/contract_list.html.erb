@@ -1,2 +1,16 @@
 <div class="title">契約書管理</div>
-<div class="content"></div>
+<div class="content">
+  <%= button_to '契約書作成', {action: "contract_new"}, :method=>:get %>
+</div>
+<h1>契約書一覧</h1>
+  <% @contracts.each do |contract| %>
+        <div>
+          [<%=contract.id %>]  貸:<%= @users.find(contract.credit).name %> 借:<%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %>  | <%=contract.status %> <%= link_to("返済", payback_new_path(:contract_id => contract.id)) %>
+        </div>
+  <% end %>
+  <h1>返済申請一覧</h1>
+  <% @payments.each do |payment| %>
+        <div>
+          [<%=payment.id %>] contract: <%=payment.contract_id %> | <%=payment.amount %>円 | <%=payment.note %> | <%=payment.status %> <%= link_to("返済合意", payback_agree_path(:payment_id => payment.id)) %>
+        </div>
+  <% end %>
