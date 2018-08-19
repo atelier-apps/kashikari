@@ -1,13 +1,25 @@
 <div class="title">契約書作成</div>
 <div class="content">
   <%= form_for Contract.new do |f| %>
+  <div class="form">
     <%= f.label :debit, "借方" %>
     <%= f.select :debit, @friend_options, :selected => @debit_id, :required => true %>
+  </div>
+  <div class="form">
     <%= f.label :amount, "金額" %>
     <%= f.number_field :amount, :required => true %>
+  </div>
+  <div class="form">
+    <%= f.label :deadline, "期限" %>
+    <%= f.date_field :deadline %>
+  </div>
+  <div class="form">
     <%= f.label :note, "メモ" %>
-    <%= f.text_area :note %>
+    <%= f.text_field :note %>
+  </div>
+  <div class="form">
     <%= f.hidden_field :credit, value: @credit_id %>
     <%= f.submit "作成する", data: { disable_with: '作成中' }  %>
+  </div>
   <% end %>
 </div>

@@ -1,2 +1,7 @@
-<%= button_to 'たしかに受け取りました', {action: 'agreePayment', :payment_id=> @payment.id }, :method=>:post, :remote => true %>
-<%= button_to '返された覚えはありません', {action: 'disagreePayment', :payment_id=> @payment.id }, :method=>:post, :remote => true  %>
+
+<div class="form">
+  <%= button_to 'たしかに受け取りました', {action: 'agreePayment', :payment_id=> @payment.id }, :method=>:post, :remote => true %>
+</div>
+<div class="form">
+  <%= button_to '返された覚えはありません', {action: 'disagreePayment', :payment_id=> @payment.id }, :method=>:post, :remote => true  %>
+</div>

@@ -1,19 +1,14 @@
-<div class="title">友達管理</div>
-<div class="content">
+<div class="header">友達一覧</div>
+
+<div class="list-area">
+  <% @friends.each do |friend| %>
+  <div class="list" onclick="window.location='contract_new?friend_id=<%=friend.id%>';">
+    <div class="main">
+      <%=@users.find(friend.follower).name %> -> <%=@users.find(friend.followee).name %>
+    </div>
+  </div>
+  <% end %>
+</div>
+<div class="menu">
   <%= button_to '友達追加', {action: "friend_new"}, :method=>:get %>
 </div>
-
-<h1>ユーザ一覧</h1>
-<% @users.each do |user| %>
-      <div>
-        [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
-      </div>
-<% end %>
-<hr />
-<h1>友達一覧</h1>
-<% @friends.each do |friend| %>
-      <div>
-        <%=@users.find(friend.follower).name %> -> <%=@users.find(friend.followee).name %>  <%= link_to("契約", contract_new_path(friend_id: friend.followee)) %>
-      </div>
-<% end %>
-<hr />

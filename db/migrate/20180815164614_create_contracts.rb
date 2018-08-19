@@ -6,6 +6,7 @@ class CreateContracts < ActiveRecord::Migration[5.2]
       t.integer :amount
       t.text :status
       t.text :note
+      t.date :deadline
 
       t.timestamps
     end
