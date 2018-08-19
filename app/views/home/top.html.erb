@@ -1,1 +1,10 @@
 <h1>TOP</h1>
+<%= link_to("契約書管理",contract_list_path) %>
+<%= link_to("友達管理",friend_list_path) %>
+
+<h1>ユーザ一覧</h1>
+<% @users.each do |user| %>
+<div class="list">
+  [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
+</div>
+<% end %>

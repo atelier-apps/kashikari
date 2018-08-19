@@ -96,6 +96,7 @@ class HomeController < ApplicationController
     record.note = params[:contract][:note]
     record.credit = params[:contract][:credit]
     record.debit = params[:contract][:debit]
+    record.deadline = params[:contract][:deadline]
     record.status = "UNREAD"
     record.save()
     redirect_to(contract_list_path)

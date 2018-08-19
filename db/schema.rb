@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_093726) do
     t.integer "amount"
     t.text "status"
     t.text "note"
+    t.date "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
