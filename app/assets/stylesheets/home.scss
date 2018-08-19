@@ -109,6 +109,8 @@ div{
   &.list-area{
     height: 50vh;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
     padding: $header-height 0 50vh 0;
   }
   &.menu{
