@@ -1,10 +1,13 @@
-<h1>TOP</h1>
+<div>＊リリース版では、この画面の代わりにLINE画面を使用する</div>
+<hr>
+<h1>リンク</h1>
 <%= link_to("契約書管理",contract_list_path) %>
 <%= link_to("友達管理",friend_list_path) %>
 
-<h1>ユーザ一覧</h1>
+<h1>デバッグ用データ</h1>
+<h2>ユーザアカウント</h2>
 <% @users.each do |user| %>
-<div class="list">
+<div>
   [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
 </div>
 <% end %>
