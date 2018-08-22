@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'payback_new' => "home#payback_new"
   get 'payback_agree' => "home#payback_agree"
   get 'friend_new' => "home#friend_new"
+  get 'friend' => "home#friend"
   get 'friend_list' => "home#friend_list"
   post "friends" => "home#addFriend"
   post "payments" => "home#createPayment"
