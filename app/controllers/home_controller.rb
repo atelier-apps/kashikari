@@ -185,9 +185,7 @@ class HomeController < ApplicationController
         end
       end
     end
-
     return balance
-
   end
 
 end
