@@ -64,7 +64,6 @@ class HomeController < ApplicationController
       @contracts_credit=Contract.where(credit: 1, debit:@user_id)
       @contracts_debit=Contract.where(credit: @user_id, debit: 1)
       @balance=balance(@contracts_credit, @contracts_debit)
-
     end
   end
 
