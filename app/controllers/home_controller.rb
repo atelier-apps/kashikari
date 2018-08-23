@@ -160,7 +160,6 @@ class HomeController < ApplicationController
     redirect_back(fallback_location: top_path)
   end
 
-
   #清算関連
 
   def balance (contracts_credit, contracts_debit)
