@@ -23,8 +23,8 @@ class HomeController < ApplicationController
     if friend_id.blank? then
       friend_id=""
     end
-    @debit_id=friend_id
-    @credit_id=1
+    @debit_id=1
+    @credit_id=friend_id
     @friend_options=[]
     users =User.all
     users.each do |user|
@@ -61,8 +61,10 @@ class HomeController < ApplicationController
       @friend =Friend.find_by(followee: @user_id)
       @users =User.all
       @user =@users.find(@user_id)
-      @contracts_credit=Contract.where(credit: @user_id)
-      @contracts_debit=Contract.where(debit: @user_id)
+      @contracts_credit=Contract.where(credit: 1, debit:@user_id)
+      @contracts_debit=Contract.where(credit: @user_id, debit: 1)
+      @balance=balance(@contracts_credit, @contracts_debit)
+
     end
   end
 
@@ -157,6 +159,36 @@ class HomeController < ApplicationController
     @payment.status="REJECTED"
     @payment.save()
     redirect_back(fallback_location: top_path)
+  end
+
+  #清算関連
+
+  def balance (contracts_credit, contracts_debit)
+    balance=0
+    payments=Payment.all
+
+    contracts_credit.each do |contract|
+      if contract.status!="PAID" then
+        balance-=contract.amount
+        related_payments=payments.where(contract_id: contract.id)
+        related_payments.each do |related_payment|
+          balance+=related_payment.amount
+        end
+      end
+    end
+
+    contracts_debit.each do |contract|
+      if contract.status!="PAID" then
+        balance+=contract.amount
+        related_payments=payments.where(contract_id: contract.id)
+        related_payments.each do |related_payment|
+          balance-=related_payment.amount
+        end
+      end
+    end
+
+    return balance
+
   end
 
 end

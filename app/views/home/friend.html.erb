@@ -7,20 +7,24 @@
     [<%=@user.id %>] <%=@user.name %>
   </div>
 
+  <div>
+    清算額: あなたはこの人に<%=@balance %>円支払ってください。
+  </div>
+
 </div>
 
 <div>
   <% @contracts_credit.each do |contract| %>
   <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
     <div class="main">
-      [<%=contract.id %>] 貸方: 自分 | 借方: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+      貸[<%=contract.id %>] 貸方: <%=@users.find(contract.credit).name%> | 借方: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
     </div>
   </div>
   <% end %>
   <% @contracts_debit.each do |contract| %>
   <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
     <div class="main">
-      [<%=contract.id %>] 貸方: <%=@users.find(contract.credit).name%> | 借方: 自分 | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+      借[<%=contract.id %>] 貸方: <%=@users.find(contract.credit).name%> | 借方: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
     </div>
   </div>
   <% end %>
