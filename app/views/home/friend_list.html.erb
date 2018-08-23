@@ -2,7 +2,7 @@
 
 <div class="list-area">
   <% @friends.each do |friend| %>
-  <div class="list" onclick="window.location='contract_new?friend_id=<%=friend.followee%>';">
+  <div class="list" onclick="window.location='friend?user_id=<%=friend.followee%>';">
     <div class="main">
       <%=@users.find(friend.follower).name %> -> <%=@users.find(friend.followee).name %>
     </div>

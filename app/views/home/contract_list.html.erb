@@ -1,19 +1,19 @@
 <div class="header">契約一覧</div>
 <div class="list-area">
   <% @contracts.each do |contract| %>
-        <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
-          <div class="main">
-            [<%=contract.id %>] <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
-          </div>
-          </div>
+  <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
+    <div class="main">
+      [<%=contract.id %>] 貸: <%=@users.find(contract.credit).name%>, 借: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+    </div>
+  </div>
   <% end %>
   <% @payments.each do |payment| %>
   <div class="list" onclick="window.location='payback_agree?payment_id=<%=payment.id%>';">
     <div class="main">
-          [<%=payment.contract_id %>]に対する返済申請 <br>
-          <%=payment.amount %>円 | <%=payment.note %> | <%=payment.status %>
-        </div>
-        </div>
+      [<%=payment.contract_id %>]に対する返済申請 <br>
+      <%=payment.amount %>円 | <%=payment.note %> | <%=payment.status %>
+    </div>
+  </div>
   <% end %>
 </div>
 
