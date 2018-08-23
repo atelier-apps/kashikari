@@ -3,7 +3,7 @@
   <% @contracts.each do |contract| %>
   <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
     <div class="main">
-      [<%=contract.id %>] <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+      [<%=contract.id %>] 貸: <%=@users.find(contract.credit).name%>, 借: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
     </div>
   </div>
   <% end %>
