@@ -42,6 +42,7 @@ class HomeController < ApplicationController
     end
   end
 
+
   def contract_complete
     @contract_id=params[:contract_id]
     if @contract_id.blank?
@@ -50,6 +51,7 @@ class HomeController < ApplicationController
       @contract =Contract.find(@contract_id)
     end
   end
+
 
   def contract_list
     @contracts =Contract.all
@@ -70,18 +72,14 @@ class HomeController < ApplicationController
   end
 
   # 返済関連
+
   def createPayment
     record = Payment.new()
     record.amount =params[:payment][:amount]
     record.contract_id = params[:payment][:contract_id]
     record.save()
-    redirect_to(contract_path(contract_id: record.contract_id))
+    redirect_to(contract_list_path)
   end
 
-
-  # 友達関連
-  def addFriend
-
-  end
 
 end

@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get 'top' => 'home#top'
   get 'contract' => "home#contract"
   get 'contract_new' => "home#contract_new"
-  get 'contract_list' => "home#contract_list"
   get 'contract_agree' => "home#contract_agree"
   get 'contract_complete' => "home#contract_complete"
   post "contracts" => "home#createContract"

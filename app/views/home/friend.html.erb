@@ -1,0 +1,27 @@
+<div class="title">友達</div>
+<div class="content">
+  <div>
+    follower: <%=@friend.follower %> | followee: <%=@friend.followee %> | status: <%=@friend.status %>
+  </div>
+  <div>
+    [<%=@user.id %>] <%=@user.name %>
+  </div>
+
+</div>
+
+<div>
+  <% @contracts_credit.each do |contract| %>
+  <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
+    <div class="main">
+      [<%=contract.id %>] 貸方: 自分 | 借方: <%=@users.find(contract.debit).name%> | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+    </div>
+  </div>
+  <% end %>
+  <% @contracts_debit.each do |contract| %>
+  <div class="list" onclick="window.location='payback_new?contract_id=<%=contract.id%>';">
+    <div class="main">
+      [<%=contract.id %>] 貸方: <%=@users.find(contract.credit).name%> | 借方: 自分 | <%=contract.amount %>円 | <%=contract.note %> | <%=contract.deadline %>
+    </div>
+  </div>
+  <% end %>
+</div>
