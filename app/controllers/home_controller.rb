@@ -34,7 +34,7 @@ class HomeController < ApplicationController
       friend_id=""
     end
     @debit_id=friend_id
-    @credit_id=5
+    @credit_id=1
     @friend_options=[]
     users =User.all
     users.each do |user|
@@ -67,7 +67,6 @@ class HomeController < ApplicationController
     record.debit = params[:contract][:debit]
     record.deadline = params[:contract][:deadline]
     record.status = "UNREAD"
-    record.save()
     redirect_to(contract_complete_path(contract_id: record.id))
   end
 
@@ -81,5 +80,33 @@ class HomeController < ApplicationController
     redirect_to(contract_list_path)
   end
 
+
+  #清算関連
+
+  def balance (contracts_credit, contracts_debit)
+    balance=0
+    payments=Payment.all
+
+    contracts_credit.each do |contract|
+      if contract.status!="PAID" then
+        balance-=contract.amount
+        related_payments=payments.where(contract_id: contract.id)
+        related_payments.each do |related_payment|
+          balance+=related_payment.amount
+        end
+      end
+    end
+
+    contracts_debit.each do |contract|
+      if contract.status!="PAID" then
+        balance+=contract.amount
+        related_payments=payments.where(contract_id: contract.id)
+        related_payments.each do |related_payment|
+          balance-=related_payment.amount
+        end
+      end
+    end
+    return balance
+  end
 
 end
