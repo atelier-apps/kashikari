@@ -8,7 +8,7 @@ $form-width: 50vw;
 $form-height: 15vw;
 $form-radius: 1.8vw;
 
-$header-height: 3em;
+$header-height: 5em;
 
 // 色彩
 $color-base: #fcfcfc;
@@ -18,7 +18,7 @@ $color-base-pale: #ffffff;
 $color-main: #51a1a2;
 $color-accent: #a25251;
 
-$color-other-header: #555555;
+$color-other-header: #ffffff;
 
 
 
@@ -62,6 +62,12 @@ input,textarea,select{
     border-color: $color-main;
     box-shadow: 0px 0px 2px 0 $color-main;
   }
+  &.filter{
+    width: 100vw;
+    border-radius: 0;
+    background-color: $color-base;
+    height: 2.5em;
+  }
 }
 
 // ボタン系統
@@ -88,7 +94,7 @@ div{
     box-shadow: 0px 0px 0.5em 0 rgba(0,0,0,0.3);
     text-align: center;
     background-color: $color-other-header;
-    color: $color-base-pale;
+    color: $color-base-black;
     position: fixed;
     top:0;
     left: 0;
@@ -96,7 +102,6 @@ div{
     height: $header-height;
     box-sizing: border-box;
     z-index: 100;
-    display: flex;
     align-items: center;
     justify-content: center;
   }
