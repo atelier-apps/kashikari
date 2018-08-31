@@ -1,0 +1,14 @@
+<div class="title">契約合意</div>
+<div class="content">
+[<%=@contract.id %>] <%=@contract.amount %>
+
+<% if @contract.status=="ACCEPTED" %>
+<%= render partial: "accepted" %>
+<% end %>
+<% if @contract.status=="REJECTED" %>
+<%= render partial: "rejected" %>
+<% end %>
+<% if @contract.status=="READ" %>
+<%= render partial: "unjudged" %>
+<% end %>
+</div>
