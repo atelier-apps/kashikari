@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   # デバッグ用画面
   def top
     @payments=Payment.all
+    @contracts=Contract.all
     @users =User.all
     if @users.length==0 then
       for i in 1..5 do
@@ -60,6 +61,7 @@ class HomeController < ApplicationController
   end
 
   def createContract
+
     record = Contract.new()
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
@@ -67,6 +69,7 @@ class HomeController < ApplicationController
     record.debit = params[:contract][:debit]
     record.deadline = params[:contract][:deadline]
     record.status = "UNREAD"
+    record.save()
     redirect_to(contract_complete_path(contract_id: record.id))
   end
 
