@@ -5,11 +5,12 @@ class HomeController < ApplicationController
     @payments=Payment.all
     @contracts=Contract.all
     @users =User.all
+    user_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
     if @users.length==0 then
-      for i in 1..5 do
+      for i in 0..4 do
         user=User.new
-        user.name="Test User"+i.to_s
-        user.account="a"+i.to_s
+        user.name=user_names[i]
+        user.account=i
         user.save()
       end
       @users =User.all
@@ -24,6 +25,10 @@ class HomeController < ApplicationController
     else
       @contract =Contract.find(@contract_id)
       @filtered_payments=Payment.where(contract_id: @contract_id)
+      @paid_amount=0
+      @filtered_payments.each do |filtered_payment|
+        @paid_amount+=filtered_payment.amount
+      end
     end
   end
 
@@ -61,17 +66,25 @@ class HomeController < ApplicationController
   end
 
   def createContract
-
     record = Contract.new()
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
-    record.credit = params[:contract][:credit]
-    record.debit = params[:contract][:debit]
+    record.user_id = params[:contract][:credit]
+    record.friend_id = params[:contract][:debit]
     record.deadline = params[:contract][:deadline]
     record.status = "UNREAD"
     record.save()
     redirect_to(contract_complete_path(contract_id: record.id))
   end
+
+  def filterContract
+    @contracts =Contract.all
+    @users =User.all
+    @payments =Payment.all
+    render action: :contract_list
+    return
+  end
+
 
   # 返済関連
 
@@ -80,36 +93,21 @@ class HomeController < ApplicationController
     record.amount =params[:payment][:amount]
     record.contract_id = params[:payment][:contract_id]
     record.save()
+
+    #返済完了判定
+    contract =Contract.find(record.contract_id)
+    balance=contract.amount
+    payments=Payment.where(contract_id: record.contract_id)
+    payments.each do |payment|
+      balance-=payment.amount
+    end
+    logger.debug(balance)
+    if balance<=0 then
+      contract.status="PAID"
+      contract.save()
+    end
+
     redirect_to(contract_list_path)
-  end
-
-
-  #清算関連
-
-  def balance (contracts_credit, contracts_debit)
-    balance=0
-    payments=Payment.all
-
-    contracts_credit.each do |contract|
-      if contract.status!="PAID" then
-        balance-=contract.amount
-        related_payments=payments.where(contract_id: contract.id)
-        related_payments.each do |related_payment|
-          balance+=related_payment.amount
-        end
-      end
-    end
-
-    contracts_debit.each do |contract|
-      if contract.status!="PAID" then
-        balance+=contract.amount
-        related_payments=payments.where(contract_id: contract.id)
-        related_payments.each do |related_payment|
-          balance-=related_payment.amount
-        end
-      end
-    end
-    return balance
   end
 
 end
