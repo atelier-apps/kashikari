@@ -18,7 +18,7 @@ $color-base-pale: #ffffff;
 $color-main: #51a1a2;
 $color-accent: #a25251;
 
-$color-other-header: #ffffff;
+$color-other-header: #555555;
 
 
 html{
@@ -63,7 +63,7 @@ input,textarea,select{
     box-shadow: 0px 0px 2px 0 $color-main;
   }
   &.filter{
-    width: 100vw;
+    width: 50vw;
     border-radius: 0;
     background-color: $color-base;
     height: 2.5em;
@@ -94,7 +94,7 @@ div{
     box-shadow: 0px 0px 0.5em 0 rgba(0,0,0,0.3);
     text-align: center;
     background-color: $color-other-header;
-    color: $color-base-black;
+    color: $color-base;
     position: fixed;
     top:0;
     left: 0;
@@ -145,6 +145,9 @@ div{
     font-size: 1.5em;
     text-align: center;
   }
+  &.filter-area{
+    display: flex;
+  }
   &.list{
     box-shadow: 0px 1px 1px 0 rgba(0,0,0,0.1);
     justify-content: space-between;
@@ -154,7 +157,7 @@ div{
     display: flex;
     position: relative;
     box-sizing: border-box;
-    padding-right: 1.8em;
+
     height: 4em;
     width: 100%;
     .amount{
@@ -163,11 +166,20 @@ div{
       width: 5em;
     }
     .main{
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 1.8em;
+    }
+    .main-content{
       flex: 1;
       font-size: 0.8em;
     }
     .checkbox{
-      width: 4em;
+      padding: 0 1em;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -180,7 +192,6 @@ div{
       img{
         width: 2.4em;
         height: 2.4em;
-        animation: show-status 0.8s;
       }
     }
     &::after{
@@ -193,9 +204,13 @@ div{
   }
 }
 
+.animation-check{
+  animation: show-status 0.5s;
+}
+
 @keyframes show-status {
     0% {
-        transform: scale(3) rotateZ(-15deg);
+        transform: scale(2.5) rotateZ(-12deg);
     }
     80% {
         transform: scale(1);

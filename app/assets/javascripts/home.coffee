@@ -2,5 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#$ ->
-#  $(document).on "keypress", "input:not(.allow_submit)", (event) -> event.which != 13
+$ ->
+  $(document).on "keypress", "input:not(.allow_submit)", (event) -> event.which != 13
+
+  $("select[name^=filter]").change ->
+    filter_note=$("#filter_note").val()
+    filter_friend=$("#filter_friend").val()
+    window.location="contract_list?note_filter_selected="+filter_note+"&friend_filter_selected="+filter_friend
+    return
+
+  $("img").click ->
+    if $(this).attr("name") isnt "PAID"
+      $(this).attr('src','/assets/icon_paid-3ac411dfa518fce3e303a57d905e7bdaf9a334bb3cea9d6551a27e433bb48707.png');
+      $(this).addClass('animation-check');

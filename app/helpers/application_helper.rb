@@ -7,8 +7,8 @@ module ApplicationHelper
   end
   def parse_status(status)
     if status=="PAID" then
-      return link_to(image_tag("icon_paid.png"),top_path)
+      return image_tag("icon_paid.png", name: status)
     end
-      return link_to(image_tag("icon_unpaid.png"),top_path)
+      return image_tag("icon_unpaid.png", name: status)
   end
 end
