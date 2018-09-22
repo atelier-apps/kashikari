@@ -33,8 +33,6 @@ class HomeController < ApplicationController
   end
 
   def contract_new
-    @event_options=["立て替え","飲み会","旅行"]
-
     friend_id=params[:friend_id]
     if friend_id.blank? then
       friend_id=""
@@ -60,9 +58,24 @@ class HomeController < ApplicationController
 
 
   def contract_list
-    @contracts =Contract.all
+    @contracts =Contract.order(deadline: :desc)
+
+    @note_filter_selected=params[:note_filter_selected]
+    if !@note_filter_selected.blank?
+      @contracts =@contracts.where(note: @note_filter_selected)
+    end
+
+    @friend_filter_selected=params[:friend_filter_selected]
+    if !@friend_filter_selected.blank?
+      @contracts =@contracts.where(friend_id: @friend_filter_selected)
+    end
+
+    @sum=@contracts.sum(:amount)
     @users =User.all
-    @payments =Payment.all
+    @friend_filter=[]
+    @users.each do |friend|
+      @friend_filter.push([friend.name, friend.id])
+    end
   end
 
   def createContract
@@ -75,14 +88,6 @@ class HomeController < ApplicationController
     record.status = "UNREAD"
     record.save()
     redirect_to(contract_complete_path(contract_id: record.id))
-  end
-
-  def filterContract
-    @contracts =Contract.all
-    @users =User.all
-    @payments =Payment.all
-    render action: :contract_list
-    return
   end
 
 
