@@ -9,10 +9,15 @@
 </div>
 <% end %>
 
+<div>
+<div>返済歴</div>
+<div class="paybeck-list-area">
 <% @filtered_payments.each do |payment| %>
-      <div class="list">
+      <div class="payback-list">
         <div class="main">
-          <%=payment.amount %>円 <%=payment.contract_id %>
+          <%=parse_amount(payment.amount) %> <%=payment.contract_id %> <%=parse_time(payment.created_at) %>
         </div>
       </div>
 <% end %>
+</div>
+</div>

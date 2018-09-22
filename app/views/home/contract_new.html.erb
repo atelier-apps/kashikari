@@ -15,7 +15,7 @@
   </div>
   <div class="form">
     <%= f.label :debit, "相手" %>
-    <%= f.hidden_field :debit, :required => true, value: @credit_id %>
+    <%= f.hidden_field :credit, :required => true, value: @credit_id %>
     <%= f.select :debit, @friend_options, :selected => @debit_id, :required => true %>
   </div>
   <div class="form">

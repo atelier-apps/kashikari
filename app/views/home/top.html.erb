@@ -11,12 +11,20 @@
   [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
 </div>
 <% end %>
+<h2>契約書レコード</h2>
+<% @contracts.each do |contract| %>
+      <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
+        <div class="main">
+          [済] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
+        </div>
+      </div>
+<% end %>
 <h2>返済レコード</h2>
 <% @payments.each do |payment| %>
 <div class="list" onclick="window.location='payback_agree?payment_id=<%=payment.id%>';">
   <div class="main">
         [<%=payment.contract_id %>]に対する返済申請 <br>
-        <%=payment.amount %>円 | <%=payment.note %> | <%=payment.status %>
+        <%=payment.amount %>円 | <%=payment.created_at %>
       </div>
       </div>
 <% end %>
