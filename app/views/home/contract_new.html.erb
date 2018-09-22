@@ -2,8 +2,8 @@
 <div class="content">
   <%= form_for Contract.new do |f| %>
   <div class="form">
-    <%= f.label :credit, "貸方" %>
-    <%= f.select :credit, @friend_options, :selected => @credit_id, :required => true %>
+    <%= f.label :note, "イベント" %>
+    <%= f.select :note, @event_options, :selected => @debit_id, :required => true %>
   </div>
   <div class="form">
     <%= f.label :amount, "金額" %>
@@ -14,11 +14,11 @@
     <%= f.date_field :deadline %>
   </div>
   <div class="form">
-    <%= f.label :note, "メモ" %>
-    <%= f.text_field :note %>
+    <%= f.label :debit, "相手" %>
+    <%= f.hidden_field :credit, :required => true, value: @credit_id %>
+    <%= f.select :debit, @friend_options, :selected => @debit_id, :required => true %>
   </div>
   <div class="form">
-    <%= f.hidden_field :debit, value: @debit_id %>
     <%= f.submit "作成する", data: { disable_with: '作成中' }  %>
   </div>
   <% end %>

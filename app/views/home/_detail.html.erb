@@ -1,0 +1,12 @@
+<div>
+  <%=parse_amount(@contract.amount) %>
+</div>
+<div>
+  相手: <%=@contract.friend_id %>
+</div>
+<div>
+  メモ: <%=@contract.note %>
+</div>
+<div>
+  状態: <%=@contract.status %> （<%=@paid_amount %>）
+</div>

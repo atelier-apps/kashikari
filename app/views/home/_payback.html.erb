@@ -1,0 +1,23 @@
+<%= form_for Payment.new do |f| %>
+<div class="form">
+  <%= f.label :amount, "金額" %>
+  <%= f.number_field :amount, :required => true %>
+</div>
+<%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
+<div class="form">
+  <%= f.submit "部分返済する", data: { disable_with: '処理中' }  %>
+</div>
+<% end %>
+
+<div>
+<div>返済歴</div>
+<div class="paybeck-list-area">
+<% @filtered_payments.each do |payment| %>
+      <div class="payback-list">
+        <div class="main">
+          <%=parse_amount(payment.amount) %> <%=payment.contract_id %> <%=parse_time(payment.created_at) %>
+        </div>
+      </div>
+<% end %>
+</div>
+</div>
