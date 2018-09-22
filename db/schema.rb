@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2018_08_18_093726) do
 
   create_table "contracts", force: :cascade do |t|
-    t.text "debit"
-    t.text "credit"
+    t.bigint "friend_id"
+    t.bigint "user_id"
     t.integer "amount"
     t.text "status"
     t.text "note"
@@ -24,9 +24,8 @@ ActiveRecord::Schema.define(version: 2018_08_18_093726) do
   end
 
   create_table "friends", force: :cascade do |t|
-    t.bigint "follower"
-    t.bigint "followee"
-    t.text "status"
+    t.bigint "user_id"
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,8 +33,6 @@ ActiveRecord::Schema.define(version: 2018_08_18_093726) do
   create_table "payments", force: :cascade do |t|
     t.bigint "contract_id"
     t.integer "amount"
-    t.text "status"
-    t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
