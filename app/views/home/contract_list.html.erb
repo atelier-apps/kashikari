@@ -10,8 +10,15 @@
 <div class="list-area">
   <% @contracts.each do |contract| %>
         <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
+          <div class="checkbox">
+           <%=parse_status(contract.status) %>
+          </div>
           <div class="main">
-            [済] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.debit).name%> <%=contract.deadline %>
+            <div><%=@users.find(contract.friend_id).name%></div>
+            <div><%=contract.note %> <%=contract.deadline %></div>
+          </div>
+          <div class="amount">
+            <%=parse_amount(contract.amount) %>
           </div>
         </div>
   <% end %>
