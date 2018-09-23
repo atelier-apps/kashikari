@@ -15,7 +15,7 @@
 <% @contracts.each do |contract| %>
       <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
         <div class="main">
-          [済] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
+          [<%=contract.status %>] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
         </div>
       </div>
 <% end %>
