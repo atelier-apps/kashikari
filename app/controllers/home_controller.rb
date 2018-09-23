@@ -4,16 +4,15 @@ class HomeController < ApplicationController
   def top
     @payments=Payment.all
     @contracts=Contract.all
-    @users =User.all
+    @users =Friend.all
     user_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
     if @users.length==0 then
       for i in 0..4 do
-        user=User.new
+        user=Friend.new
         user.name=user_names[i]
-        user.account=i
         user.save()
       end
-      @users =User.all
+      @users =Friend.all
     end
   end
 
@@ -40,7 +39,7 @@ class HomeController < ApplicationController
     @debit_id=friend_id
     @credit_id=1
     @friend_options=[]
-    users =User.all
+    users =Friend.all
     users.each do |user|
       @friend_options.push([user.name,user.id])
     end
@@ -71,7 +70,7 @@ class HomeController < ApplicationController
     end
 
     @sum=@contracts.sum(:amount)
-    @users =User.all
+    @users =Friend.all
     @friend_filter=[]
     @users.each do |friend|
       @friend_filter.push([friend.name, friend.id])
