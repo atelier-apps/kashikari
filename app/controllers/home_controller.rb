@@ -65,6 +65,8 @@ class HomeController < ApplicationController
 
   def contract_list
     @contracts =Contract.order(deadline: :asc)
+    @contracts =@contracts.where.not(status: "DELETED")
+
 
     @note_filter_selected=params[:note_filter_selected]
     if !@note_filter_selected.blank?
@@ -106,6 +108,14 @@ class HomeController < ApplicationController
     record.status = "UNREAD"
     record.save()
     redirect_to(contract_complete_path(contract_id: record.id))
+  end
+
+  def deleteContract
+    contract_id=params[:contract_id]
+    record = Contract.find(contract_id)
+    record.status = "DELETED"
+    record.save()
+    redirect_to(contract_list_path)
   end
 
 
