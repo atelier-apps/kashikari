@@ -32,16 +32,23 @@ class HomeController < ApplicationController
   end
 
   def contract_new
-    friend_id=params[:friend_id]
-    if friend_id.blank? then
-      friend_id=""
-    end
-    @debit_id=friend_id
+
     @credit_id=1
     @friend_options=[]
     users =Friend.all
     users.each do |user|
       @friend_options.push([user.name,user.id])
+    end
+
+    @contract_id=params[:contract_id]
+    if !@contract_id.blank? then
+      contract=Contract.find(@contract_id)
+      @amount=contract.amount
+      @note=contract.note
+      @debit_id=contract.friend_id
+      if !contract.deadline.blank? then
+        @deadline=contract.deadline.strftime("%Y-%m-%d")
+      end
     end
   end
 
@@ -78,7 +85,12 @@ class HomeController < ApplicationController
   end
 
   def createContract
-    record = Contract.new()
+    if params[:contract][:id].blank?
+      record = Contract.new()
+    else
+      record = Contract.find(params[:contract][:id])
+    end
+
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
     record.user_id = params[:contract][:credit]
