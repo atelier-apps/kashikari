@@ -64,7 +64,7 @@ class HomeController < ApplicationController
 
 
   def contract_list
-    @contracts =Contract.order(deadline: :desc)
+    @contracts =Contract.order(deadline: :asc)
 
     @note_filter_selected=params[:note_filter_selected]
     if !@note_filter_selected.blank?
@@ -76,7 +76,14 @@ class HomeController < ApplicationController
       @contracts =@contracts.where(friend_id: @friend_filter_selected)
     end
 
-    @sum=@contracts.sum(:amount)
+    @sum=0
+    @contracts.each do |contract|
+      paymants =Payment.where(contract_id: contract.id)
+      sum=paymants.sum(:amount)
+      contract.amount=contract.amount-sum
+      @sum+=contract.amount
+    end
+
     @users =Friend.all
     @friend_filter=[]
     @users.each do |friend|
