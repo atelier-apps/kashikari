@@ -149,7 +149,7 @@ class HomeController < ApplicationController
     redirect_to(contract_list_path)
     else
       #Windows用のポップアップっぽい。。。
-      flash[:notice] = "SEXしてえ、もっとしてえ"
+      flash[:notice] = "金額が超過しています。"
 
         redirect_to(contract_path(contract_id: record.contract_id))
     end
