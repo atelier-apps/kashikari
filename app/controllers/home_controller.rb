@@ -4,16 +4,15 @@ class HomeController < ApplicationController
   def top
     @payments=Payment.all
     @contracts=Contract.all
-    @users =User.all
+    @users =Friend.all
     user_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
     if @users.length==0 then
       for i in 0..4 do
-        user=User.new
+        user=Friend.new
         user.name=user_names[i]
-        user.account=i
         user.save()
       end
-      @users =User.all
+      @users =Friend.all
     end
   end
 
@@ -31,18 +30,23 @@ class HomeController < ApplicationController
   end
 
   def contract_new
-    @event_options=["立て替え","飲み会","旅行"]
 
-    friend_id=params[:friend_id]
-    if friend_id.blank? then
-      friend_id=""
-    end
-    @debit_id=friend_id
     @credit_id=1
     @friend_options=[]
-    users =User.all
+    users =Friend.all
     users.each do |user|
       @friend_options.push([user.name,user.id])
+    end
+
+    @contract_id=params[:contract_id]
+    if !@contract_id.blank? then
+      contract=Contract.find(@contract_id)
+      @amount=contract.amount
+      @note=contract.note
+      @debit_id=contract.friend_id
+      if !contract.deadline.blank? then
+        @deadline=contract.deadline.strftime("%Y-%m-%d")
+      end
     end
   end
 
@@ -59,13 +63,42 @@ class HomeController < ApplicationController
 
 
   def contract_list
-    @contracts =Contract.all
-    @users =User.all
-    @payments =Payment.all
+    @contracts =Contract.order(deadline: :asc)
+    @contracts =@contracts.where.not(status: "DELETED")
+
+
+    @note_filter_selected=params[:note_filter_selected]
+    if !@note_filter_selected.blank?
+      @contracts =@contracts.where(note: @note_filter_selected)
+    end
+
+    @friend_filter_selected=params[:friend_filter_selected]
+    if !@friend_filter_selected.blank?
+      @contracts =@contracts.where(friend_id: @friend_filter_selected)
+    end
+
+    @sum=0
+    @contracts.each do |contract|
+      paymants =Payment.where(contract_id: contract.id)
+      sum=paymants.sum(:amount)
+      contract.amount=contract.amount-sum
+      @sum+=contract.amount
+    end
+
+    @users =Friend.all
+    @friend_filter=[]
+    @users.each do |friend|
+      @friend_filter.push([friend.name, friend.id])
+    end
   end
 
   def createContract
-    record = Contract.new()
+    if params[:contract][:id].blank?
+      record = Contract.new()
+    else
+      record = Contract.find(params[:contract][:id])
+    end
+
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
     record.user_id = params[:contract][:credit]
@@ -76,12 +109,12 @@ class HomeController < ApplicationController
     redirect_to(contract_complete_path(contract_id: record.id))
   end
 
-  def filterContract
-    @contracts =Contract.all
-    @users =User.all
-    @payments =Payment.all
-    render action: :contract_list
-    return
+  def deleteContract
+    contract_id=params[:contract_id]
+    record = Contract.find(contract_id)
+    record.status = "DELETED"
+    record.save()
+    redirect_to(contract_list_path)
   end
 
 

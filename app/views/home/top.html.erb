@@ -8,14 +8,14 @@
 <h2>ユーザアカウント</h2>
 <% @users.each do |user| %>
 <div>
-  [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
+  [<%=user.id %>]<%=user.name %>
 </div>
 <% end %>
 <h2>契約書レコード</h2>
 <% @contracts.each do |contract| %>
       <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
         <div class="main">
-          [済] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
+          [<%=contract.status %>] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
         </div>
       </div>
 <% end %>
