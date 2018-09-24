@@ -112,6 +112,7 @@ class HomeController < ApplicationController
   end
 
   def deleteContract
+
     contract_id=params[:contract_id]
     record = Contract.find(contract_id)
     record.status = "DELETED"
@@ -119,6 +120,27 @@ class HomeController < ApplicationController
     redirect_to(contract_list_path)
   end
 
+  #契約の控えを相手に送る
+  def sendAgreement
+    contract_id = params[:contract_id]
+    lineSend="https://social-plugins.line.me/lineit/share?url="
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=" + contract_id.to_s
+    redirect_to lineSend + agreementPage
+  end
+  # 契約控え
+  def contract_agree
+    @contract_id=params[:contract_id]
+    @contract =Contract.find(@contract_id)
+    @repaymentSum = 0
+  end
+
+  # 契約合意ボタン
+  def agreementButton
+    contract = Contract.find(params[:contract_id])
+    contract.status = "ACCEPTED"
+    contract.save
+    redirect_to(contract_agree_path(contract_id: params[:contract_id]))
+  end
 
   # 返済関連
 
@@ -153,7 +175,7 @@ class HomeController < ApplicationController
       #Windows用のポップアップっぽい。。。
       flash[:notice] = "金額が超過しています。"
 
-        redirect_to(contract_path(contract_id: record.contract_id))
+      redirect_to(contract_path(contract_id: record.contract_id))
     end
 
 
