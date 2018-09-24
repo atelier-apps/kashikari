@@ -105,7 +105,9 @@ class HomeController < ApplicationController
     record.user_id = params[:contract][:credit]
     record.friend_id = params[:contract][:debit]
     record.deadline = params[:contract][:deadline]
+    logger.debug("sucsess")
     record.passcode = SecureRandom.hex(4)
+    logger.debug(record.passcode)
     record.status = "UNREAD"
     record.save()
     redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
@@ -126,6 +128,7 @@ class HomeController < ApplicationController
     passcode = params[:passcode]
     lineSend="https://social-plugins.line.me/lineit/share?url="
     agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?c=" + contract_id.to_s + "&p=" + passcode.to_s
+
     redirect_to lineSend + agreementPage
   end
 
