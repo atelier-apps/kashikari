@@ -31,7 +31,7 @@ function hoge(select){
       select.val(1);
     }else{
       $.ajax({
-        url: '/hoge',
+        url: '/createFriend',
         type: 'GET',
         dataType: 'json',
         async: false,
