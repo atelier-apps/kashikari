@@ -127,8 +127,9 @@ class HomeController < ApplicationController
     contract_id = params[:contract_id]
     passcode = params[:passcode]
     lineSend="https://social-plugins.line.me/lineit/share?url="
-    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?c=" + contract_id.to_s + "&p=" + passcode.to_s
-
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?c=" + contract_id.to_s + "&amp;p=" + passcode.to_s
+    logger.debug(agreementPage)
+    logger.debug(lineSend + agreementPage)
     redirect_to lineSend + agreementPage
   end
 
