@@ -11,6 +11,11 @@ $ ->
     window.location="contract_list?note_filter_selected="+filter_note+"&friend_filter_selected="+filter_friend
     return
 
+  $("#contract_friend_id").change ->
+      friend_id=$(this).val()
+      if friend_id is ""
+        hoge($(this))
+
   $("img").click ->
     if $(this).attr("name") isnt "PAID"
       $(this).attr('src','/assets/icon_paid-3ac411dfa518fce3e303a57d905e7bdaf9a334bb3cea9d6551a27e433bb48707.png');
