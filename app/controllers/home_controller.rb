@@ -118,14 +118,14 @@ class HomeController < ApplicationController
     redirect_to(contract_list_path)
   end
 
-  #契約合意を相手に送る
+  #契約の控えを相手に送る
   def sendAgreement
     contract_id = params[:contract_id]
     lineSend="https://social-plugins.line.me/lineit/share?url="
     agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=" + contract_id.to_s
     redirect_to lineSend + agreementPage
   end
-  # 契約合意
+  # 契約控え
   def contract_agree
     @contract_id=params[:contract_id]
     @contract =Contract.find(@contract_id)
