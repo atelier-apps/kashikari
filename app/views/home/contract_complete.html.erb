@@ -2,3 +2,6 @@
 <div class="content">
   <%= render partial: "detail" %>
 </div>
+<<div class="content">
+  <%= button_to "友人の合意を取る", sendAgreement_path(contract_id: @contract.id) %>
+</div>

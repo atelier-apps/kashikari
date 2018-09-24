@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   post "contracts" => "home#createContract"
   get "contract_delete" => "home#deleteContract"
   post "payments" => "home#createPayment"
+  post "agreementButton" => "home#agreementButton"
+  post "sendAgreement" => "home#sendAgreement"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
