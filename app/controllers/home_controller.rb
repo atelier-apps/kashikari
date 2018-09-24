@@ -120,10 +120,9 @@ class HomeController < ApplicationController
 
   #契約合意を相手に送る
   def sendAgreement
-    #redirect_to "https://social-plugins.line.me/lineit/share?url=https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=params[:contract_id]"
+    contract_id = params[:contract_id]
     lineSend="https://social-plugins.line.me/lineit/share?url="
-    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=params" + params[:contract_id].to_s
-    logger.debug(lineSend + agreementPage)
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=" + contract_id.to_s
     redirect_to lineSend + agreementPage
   end
   # 契約合意
