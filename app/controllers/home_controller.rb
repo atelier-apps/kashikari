@@ -56,6 +56,7 @@ class HomeController < ApplicationController
   def contract_complete
     @repaymentSum = 0
     @contract_id=params[:contract_id]
+    @passcode=params[:passcode]
     if @contract_id.blank?
       redirect_to(top_path)
     else
@@ -106,9 +107,10 @@ class HomeController < ApplicationController
     record.user_id = params[:contract][:credit]
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
+    record.passcode = SecureRandom.hex(4)
     record.status = "UNREAD"
     record.save()
-    redirect_to(contract_complete_path(contract_id: record.id))
+    redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
   end
 
   def deleteContract
@@ -123,15 +125,28 @@ class HomeController < ApplicationController
   #契約の控えを相手に送る
   def sendAgreement
     contract_id = params[:contract_id]
+    passcode = params[:passcode]
     lineSend="https://social-plugins.line.me/lineit/share?url="
-    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?contract_id=" + contract_id.to_s
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?c=" + contract_id.to_s + "&p=" + passcode.to_s
     redirect_to lineSend + agreementPage
   end
+
   # 契約控え
   def contract_agree
-    @contract_id=params[:contract_id]
+    @contract_id=params[:c]
+    @passcode=params[:p]
     @contract =Contract.find(@contract_id)
-    @repaymentSum = 0
+    if @contract.passcode == @passcode
+      @repaymentSum = 0
+      @filtered_payments=Payment.where(contract_id: @contract_id)
+      if  @filtered_payments.blank?
+        @repaymentSum = 0
+      else
+        @repaymentSum=@filtered_payments.sum(:amount)
+      end
+    else
+      redirect_to(top_path)
+    end
   end
 
   # 契約合意ボタン

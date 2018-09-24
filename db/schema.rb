@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_092119) do
+ActiveRecord::Schema.define(version: 2018_09_24_111712) do
 
   create_table "contracts", force: :cascade do |t|
     t.bigint "friend_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_092119) do
     t.date "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "passcode"
   end
 
   create_table "friends", force: :cascade do |t|
