@@ -4,15 +4,16 @@ class HomeController < ApplicationController
   def top
     @payments=Payment.all
     @contracts=Contract.all
-    @users =Friend.all
-    user_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
-    if @users.length==0 then
+    @friends =Friend.all
+    friend_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
+    if @friends.length==0 then
       for i in 0..4 do
-        user=Friend.new
-        user.name=user_names[i]
-        user.save()
+        friend=Friend.new
+        friend.name=friend_names[i]
+        friend.user_id=1
+        friend.save()
       end
-      @users =Friend.all
+      @friends =Friend.all
     end
   end
 
@@ -104,7 +105,7 @@ class HomeController < ApplicationController
 
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
-    record.user_id = params[:contract][:credit]
+    record.user_id = params[:contract][:user_id]
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
     logger.debug("sucsess")
