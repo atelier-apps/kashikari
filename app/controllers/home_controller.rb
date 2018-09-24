@@ -127,7 +127,7 @@ class HomeController < ApplicationController
     contract_id = params[:contract_id]
     passcode = params[:passcode]
     lineSend="https://social-plugins.line.me/lineit/share?url="
-    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?c=" + contract_id.to_s + "&amp;p=" + passcode.to_s
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?cp=" + contract_id.to_s + "-" + passcode.to_s
     logger.debug(agreementPage)
     logger.debug(lineSend + agreementPage)
     redirect_to lineSend + agreementPage
@@ -135,8 +135,9 @@ class HomeController < ApplicationController
 
   # 契約控え
   def contract_agree
-    @contract_id=params[:c]
-    @passcode=params[:p]
+    cp=params[:cp].split("-")
+    @contract_id=cp[0]
+    @passcode=cp[1]
     @contract =Contract.find(@contract_id)
     if @contract.passcode == @passcode
       @repaymentSum = 0
