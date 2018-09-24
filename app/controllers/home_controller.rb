@@ -31,11 +31,12 @@ class HomeController < ApplicationController
 
   def contract_new
 
-    @credit_id=1
+    @user_id=1
+    @friend_id=1
     @friend_options=[]
-    users =Friend.all
-    users.each do |user|
-      @friend_options.push([user.name,user.id])
+    friends =Friend.all
+    friends.each do |friend|
+      @friend_options.push([friend.name,friend.id])
     end
 
     @contract_id=params[:contract_id]
@@ -43,7 +44,8 @@ class HomeController < ApplicationController
       contract=Contract.find(@contract_id)
       @amount=contract.amount
       @note=contract.note
-      @debit_id=contract.friend_id
+      @friend_id=contract.friend_id
+      logger.debug(@friend_id)
       if !contract.deadline.blank? then
         @deadline=contract.deadline.strftime("%Y-%m-%d")
       end
@@ -102,7 +104,7 @@ class HomeController < ApplicationController
     record.amount =params[:contract][:amount]
     record.note = params[:contract][:note]
     record.user_id = params[:contract][:credit]
-    record.friend_id = params[:contract][:debit]
+    record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
     record.status = "UNREAD"
     record.save()
@@ -157,5 +159,21 @@ class HomeController < ApplicationController
 
 
   end
+
+
+  # 友達関連
+  def createFriend
+    record = Friend.new()
+    record.name= params[:name]
+    record.user_id= params[:user_id]
+    record.save()
+    friends=Friend.where(user_id: record.user_id)
+    html=""
+    friends.each do |friend|
+      html+="<option value='"+friend.id.to_s+"'>"+friend.name+"</option>"
+    end
+    render json: { friend_id: record.id, friends: friends, html: html}
+  end
+
 
 end
