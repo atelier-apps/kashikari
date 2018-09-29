@@ -1,5 +1,5 @@
 module HomeHelper
   def getEventType
-    return ["UNREAD","PAID"]
+    return ["立て替え","飲み会","旅行"]
   end
 end
