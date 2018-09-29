@@ -6,9 +6,9 @@ $ ->
   $(document).on "keypress", "input:not(.allow_submit)", (event) -> event.which != 13
 
   $("select[name^=filter]").change ->
-    filter_note=$("#filter_note").val()
+    filter_status=$("#filter_status").val()
     filter_friend=$("#filter_friend").val()
-    window.location="contract_list?note_filter_selected="+filter_note+"&friend_filter_selected="+filter_friend
+    window.location="contract_list?status_filter_selected="+filter_status+"&friend_filter_selected="+filter_friend
     return
 
   $("#payment_amount").on 'input', ->
