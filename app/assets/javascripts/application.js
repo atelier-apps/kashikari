@@ -14,7 +14,7 @@
 //= require activestorage
 //= require_tree .
 
-function hoge(select){
+function create_friend(select){
   swal({
     title: "友達の新規作成",
     text: "新しい友達の名前を入力します",
@@ -32,7 +32,7 @@ function hoge(select){
     }else{
       $.ajax({
         url: '/createFriend',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         async: false,
         data: {
@@ -55,6 +55,58 @@ function hoge(select){
         }
       }).fail(function(data){
         select.val(1)
+      });
+    }
+
+  });
+
+}
+
+function edit_friend(friend_id, previous_name){
+  swal({
+    title: "友達の編集",
+    text: "友達の名前を編集します",
+    content: {
+      element: "input",
+      attributes: {
+        placeholder: "山田太郎",
+        value: previous_name
+      }
+    },
+    button: "編集"
+  }).then(function(value){
+    if(value==null||value==false||value===""){
+    }else{
+      $.ajax({
+        url: '/editFriend',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        data: {
+          frined_id: friend_id,
+          name: value,
+          user_id: 1
+        }
+      }).done(function(data){
+        console.log(data);
+        if(data!=null){
+          swal({
+            text: value+"に変更しました",
+            icon: "success",
+            buttons: false,
+            timer: 2500
+          }).then((value) => {
+            location.reload();
+          });
+
+        }
+      }).fail(function(data){
+        swal({
+          text: "失敗しました",
+          icon: "error",
+          buttons: false,
+          timer: 2500
+        });
       });
     }
 

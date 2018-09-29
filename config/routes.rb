@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   post "contracts" => "home#createContract"
   get "contract_delete" => "home#deleteContract"
   post "payments" => "home#createPayment"
-  get "createFriend" => "home#createFriend"
+  post "createFriend" => "home#createFriend"
+  post "editFriend" => "home#editFriend"
   post "agreementButton" => "home#agreementButton"
   post "sendAgreement" => "home#sendAgreement"
+  get 'friend_list' => "home#friend_list"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
