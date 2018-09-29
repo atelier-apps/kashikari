@@ -166,51 +166,21 @@ class HomeController < ApplicationController
   # 返済関連
 
   def createPayment
-
     record = Payment.new()
     record.amount =params[:payment][:amount]
     record.contract_id = params[:payment][:contract_id]
-
-    if record.amount <= 0 then
-      logger.debug('成功')
-      flash[:notice] = "1円以上を入力してください"
-
-      redirect_to(contract_path(contract_id: record.contract_id))
-      return
-    end
-    logger.debug('抜けてます')
-    # ここで返済額(Contract.amout)が0以下になる場合は、保存させない
-
+    record.save()
+    #返済完了判定
     contract =Contract.find(record.contract_id)
-    repaymentSum = 0
-    filtered_payments=Payment.where(contract_id: record.contract_id)
-    repaymentSum=filtered_payments.sum(:amount)
-    if  contract.amount- (repaymentSum + record.amount) >= 0 then
-      record.save()
-      #返済完了判定
-      contract =Contract.find(record.contract_id)
-      balance=contract.amount
-      payments=Payment.where(contract_id: record.contract_id)
-      payments.each do |payment|
-        balance-=payment.amount
-      end
-      logger.debug(balance)
-      if balance<=0 then
-        contract.status="PAID"
-        contract.save()
-      end
-    redirect_to(contract_list_path)
-    else
-      flash[:notice] = "金額が超過しています。"
-
-      redirect_to(contract_path(contract_id: record.contract_id))
-      return
+    payments=Payment.where(contract_id: record.contract_id)
+    amount=contract.amount
+    payment_sum=payments.sum(:amount)
+    if amount==payment_sum then
+      contract.status="PAID"
+      contract.save()
     end
-
-
-
+    redirect_to(contract_list_path)
   end
-
 
   # 友達関連
   def createFriend
