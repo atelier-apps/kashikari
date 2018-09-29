@@ -1,5 +1,7 @@
-<div>
-  <%=parse_amount(@contract.amount) %>
+<% balance=@contract.amount - @repaymentSum%>
+
+<div id = "contractBalance" data-balance = "<%=balance%>">
+  <%=parse_amount(balance)%>
 </div>
 <div>
   相手: <%=@contract.friend_id %>
@@ -8,5 +10,5 @@
   メモ: <%=@contract.note %>
 </div>
 <div>
-  状態: <%=@contract.status %> （<%=@paid_amount %>）
+  状態: <%=@contract.status %> （<%=@repaymentSum%> ）
 </div>

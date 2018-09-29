@@ -1,7 +1,0 @@
-
-<div class="form">
-  <%= button_to '同意する', {action: 'agreeWithContract', :contract_id=> @contract.id }, :method=>:post, :remote => true %>
-</div>
-<div class="form">
-  <%= button_to '同意しない', {action: 'disagreeWithContract', :contract_id=> @contract.id }, :method=>:post, :remote => true  %>
-</div>

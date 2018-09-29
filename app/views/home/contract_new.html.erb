@@ -3,22 +3,23 @@
   <%= form_for Contract.new do |f| %>
   <div class="form">
     <%= f.label :note, "イベント" %>
-    <%= f.select :note, @event_options, :selected => @debit_id, :required => true %>
+    <%= f.select :note, getEventType, :selected => @note, :required => true %>
   </div>
   <div class="form">
     <%= f.label :amount, "金額" %>
-    <%= f.number_field :amount, :required => true %>
+    <%= f.number_field :amount, :required => true, value: @amount %>
   </div>
   <div class="form">
     <%= f.label :deadline, "期限" %>
-    <%= f.date_field :deadline %>
+    <%= f.date_field :deadline, value: @deadline %>
   </div>
   <div class="form">
-    <%= f.label :debit, "相手" %>
-    <%= f.hidden_field :credit, :required => true, value: @credit_id %>
-    <%= f.select :debit, @friend_options, :selected => @debit_id, :required => true %>
+    <%= f.label :friend_id, "相手" %>
+    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達＞" %>
   </div>
   <div class="form">
+    <%= f.hidden_field :user_id, :required => true, value: @user_id %>
+    <%= f.hidden_field :id, value: @contract_id %>
     <%= f.submit "作成する", data: { disable_with: '作成中' }  %>
   </div>
   <% end %>

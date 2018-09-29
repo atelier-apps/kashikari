@@ -1,14 +1,13 @@
-<div class="header">友達一覧</div>
-
+<div class="header">
+<div class="filter-area">
+</div>
+</div>
 <div class="list-area">
   <% @friends.each do |friend| %>
-  <div class="list" onclick="window.location='friend?user_id=<%=friend.followee%>';">
+  <div class="list" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
     <div class="main">
-      <%=@users.find(friend.follower).name %> -> <%=@users.find(friend.followee).name %>
+      [<%=friend.id %>] <%=friend.name %> | 最終更新 <%=parse_time(friend.updated_at) %>
     </div>
   </div>
   <% end %>
-</div>
-<div class="menu">
-  <%= button_to '友達追加', {action: "friend_new"}, :method=>:get %>
 </div>

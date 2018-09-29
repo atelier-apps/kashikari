@@ -1,21 +1,19 @@
-<div>＊リリース版では、この画面の代わりにLINE画面を使用する</div>
-<hr>
-<h1>リンク</h1>
-<%= link_to("立替書作成",contract_new_path) %>
-<%= link_to("立替書管理",contract_list_path) %>
 
-<h1>デバッグ用データ</h1>
+<%= link_to("契約書作成",contract_new_path) %>
+<%= link_to("契約書一覧",contract_list_path) %>
+<%= link_to("友達一覧",friend_list_path) %>
+<hr>
 <h2>ユーザアカウント</h2>
-<% @users.each do |user| %>
+<% @friends.each do |friend| %>
 <div>
-  [<%=user.id %>]<%=user.name %> | アカウント: <%=user.account %>
+  [<%=friend.id %>]<%=friend.name %>
 </div>
 <% end %>
 <h2>契約書レコード</h2>
 <% @contracts.each do |contract| %>
       <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
         <div class="main">
-          [済] <%=contract.amount %>円 <%=contract.note %> <%=@users.find(contract.friend_id).name%> <%=contract.deadline %>
+          [<%=contract.id %>-<%=contract.passcode %>] <%=contract.amount %>円 |状態: <%=contract.status %> |種別: <%=contract.note %> |貸方ID: <%=contract.user_id %> |借方: <%=@friends.find(contract.friend_id).name%> |期限: <%=contract.deadline %>|
         </div>
       </div>
 <% end %>
