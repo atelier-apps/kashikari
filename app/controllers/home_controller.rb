@@ -171,6 +171,14 @@ class HomeController < ApplicationController
     record.amount =params[:payment][:amount]
     record.contract_id = params[:payment][:contract_id]
 
+    if record.amount <= 0 then
+      logger.debug('成功')
+      flash[:notice] = "1円以上を入力してください"
+
+      redirect_to(contract_path(contract_id: record.contract_id))
+      return
+    end
+    logger.debug('抜けてます')
     # ここで返済額(Contract.amout)が0以下になる場合は、保存させない
 
     contract =Contract.find(record.contract_id)
@@ -193,10 +201,10 @@ class HomeController < ApplicationController
       end
     redirect_to(contract_list_path)
     else
-      #Windows用のポップアップっぽい。。。
       flash[:notice] = "金額が超過しています。"
 
       redirect_to(contract_path(contract_id: record.contract_id))
+      return
     end
 
 
