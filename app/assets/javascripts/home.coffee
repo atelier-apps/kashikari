@@ -32,7 +32,7 @@ $ ->
   $("#contract_friend_id").change ->
       friend_id=$(this).val()
       if friend_id is ""
-        hoge($(this))
+        create_friend($(this))
 
   $("img").click ->
     if $(this).attr("name") isnt "PAID"
