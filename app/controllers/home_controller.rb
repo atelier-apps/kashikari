@@ -218,5 +218,17 @@ class HomeController < ApplicationController
     render json: { friend_id: record.id, friends: friends, html: html}
   end
 
+  def editFriend
+    record = Friend.find(params[:frined_id])
+    record.name= params[:name]
+    record.save()
+    render json: { friend_id: record.id}
+  end
+
+  def friend_list
+    @friends =Friend.all
+
+  end
+
 
 end
