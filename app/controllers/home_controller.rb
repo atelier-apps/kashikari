@@ -74,9 +74,9 @@ class HomeController < ApplicationController
     @contracts =@contracts.where.not(status: "DELETED")
 
 
-    @note_filter_selected=params[:note_filter_selected]
-    if !@note_filter_selected.blank?
-      @contracts =@contracts.where(note: @note_filter_selected)
+    @status_filter_selected=params[:status_filter_selected]
+    if !@status_filter_selected.blank?
+      @contracts =@contracts.where(status: @status_filter_selected)
     end
 
     @friend_filter_selected=params[:friend_filter_selected]

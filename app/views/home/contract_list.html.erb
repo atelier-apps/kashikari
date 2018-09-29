@@ -2,7 +2,7 @@
 <div class="filter-area">
 
   <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-  <%= select :filter, :note, options_for_select(getEventType, :selected => @note_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+  <%= select :filter, :status, options_for_select(getEventType, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
 </div>
 <div>
   未回収合計: <%=@sum %>
