@@ -11,6 +11,7 @@ class HomeController < ApplicationController
         friend=Friend.new
         friend.name=friend_names[i]
         friend.user_id=1
+        friend.contract_times=0
         friend.save()
       end
       @friends =Friend.all
@@ -33,24 +34,26 @@ class HomeController < ApplicationController
   def contract_new
 
     @user_id=1
-    @friend_id=1
+
     @friend_options=[]
-    friends =Friend.all
+    friends = Friend.order(contract_times: "DESC")
+    firstFriend=friends.first
+    @friend_id=firstFriend.id
     friends.each do |friend|
       @friend_options.push([friend.name,friend.id])
     end
 
-    @contract_id=params[:contract_id]
-    if !@contract_id.blank? then
-      contract=Contract.find(@contract_id)
-      @amount=contract.amount
-      @note=contract.note
-      @friend_id=contract.friend_id
-      logger.debug(@friend_id)
-      if !contract.deadline.blank? then
-        @deadline=contract.deadline.strftime("%Y-%m-%d")
-      end
-    end
+    #@contract_id=params[:contract_id]
+    #if !@contract_id.blank? then
+    #  contract=Contract.find(@contract_id)
+    #  @amount=contract.amount
+    #  @note=contract.note
+    #  @friend_id=contract.friend_id
+    #  logger.debug(@friend_id)
+    #  if !contract.deadline.blank? then
+    #    @deadline=contract.deadline.strftime("%Y-%m-%d")
+    #  end
+    #end
   end
 
 
@@ -89,9 +92,9 @@ class HomeController < ApplicationController
       @sum+=contract.amount
     end
 
-    @users =Friend.all
+    @friends = Friend.order(contract_times: "DESC")
     @friend_filter=[]
-    @users.each do |friend|
+    @friends.each do |friend|
       @friend_filter.push([friend.name, friend.id])
     end
   end
@@ -108,11 +111,13 @@ class HomeController < ApplicationController
     record.user_id = params[:contract][:user_id]
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
-    logger.debug("sucsess")
     record.passcode = SecureRandom.hex(4)
-    logger.debug(record.passcode)
     record.status = "UNREAD"
     record.save()
+
+    friend=Friend.find(record.friend_id)
+    friend.contract_times+=1
+    friend.save()
     redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
   end
 
@@ -217,6 +222,7 @@ class HomeController < ApplicationController
     record = Friend.new()
     record.name= params[:name]
     record.user_id= params[:user_id]
+    record.contract_times=0
     record.save()
     friends=Friend.where(user_id: record.user_id)
     html=""

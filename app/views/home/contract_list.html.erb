@@ -16,7 +16,7 @@
           </div>
           <div class="main" onclick="window.location='contract?contract_id=<%=contract.id%>';">
             <div class="main-content">
-              <div><%=@users.find(contract.friend_id).name%></div>
+              <div><%=@friends.find(contract.friend_id).name%></div>
               <div><%=contract.note %> <%=contract.deadline %></div>
             </div>
             <div class="amount">
