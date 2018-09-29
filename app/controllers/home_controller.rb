@@ -226,7 +226,7 @@ class HomeController < ApplicationController
   end
 
   def friend_list
-    @friends =Friend.all
+    @friends =Friend.order(updated_at: :desc)
 
   end
 
