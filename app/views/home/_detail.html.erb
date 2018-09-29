@@ -1,5 +1,7 @@
-<div>
-  <%=parse_amount(@contract.amount - @repaymentSum) %>
+<% balance=@contract.amount - @repaymentSum%>
+
+<div id = "contractBalance" data-balance = "<%=balance%>">
+  <%=parse_amount(balance)%>
 </div>
 <div>
   相手: <%=@contract.friend_id %>
