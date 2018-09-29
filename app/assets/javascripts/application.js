@@ -88,7 +88,6 @@ function edit_friend(friend_id, previous_name){
           user_id: 1
         }
       }).done(function(data){
-        console.log(data);
         if(data!=null){
           swal({
             text: value+"に変更しました",
