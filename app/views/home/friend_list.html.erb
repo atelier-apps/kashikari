@@ -6,7 +6,7 @@
   <% @friends.each do |friend| %>
   <div class="list" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
     <div class="main">
-      <%=friend.name %>
+      [<%=friend.id %>] <%=friend.name %> | 最終更新 <%=parse_time(friend.updated_at) %>
     </div>
   </div>
   <% end %>
