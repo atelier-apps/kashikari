@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_062103) do
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "contract_times"
   end
 
   create_table "payments", force: :cascade do |t|

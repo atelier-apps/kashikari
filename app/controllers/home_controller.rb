@@ -5,16 +5,28 @@ class HomeController < ApplicationController
     @payments=Payment.all
     @contracts=Contract.all
     @friends =Friend.all
+    @User =User.all
+
+    if @friends.length==0 then
+      user=User.new
+      user.name="オスプレイ"
+      user.id=1
+      user.save()
+      @User =User.all
+    end
+
     friend_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
     if @friends.length==0 then
       for i in 0..4 do
         friend=Friend.new
         friend.name=friend_names[i]
         friend.user_id=1
+        friend.contract_times=0
         friend.save()
       end
       @friends =Friend.all
     end
+
   end
 
   # 契約書関連
@@ -33,24 +45,26 @@ class HomeController < ApplicationController
   def contract_new
 
     @user_id=1
-    @friend_id=1
+
     @friend_options=[]
-    friends =Friend.all
+    friends = Friend.order(contract_times: "DESC")
+    firstFriend=friends.first
+    @friend_id=firstFriend.id
     friends.each do |friend|
       @friend_options.push([friend.name,friend.id])
     end
 
-    @contract_id=params[:contract_id]
-    if !@contract_id.blank? then
-      contract=Contract.find(@contract_id)
-      @amount=contract.amount
-      @note=contract.note
-      @friend_id=contract.friend_id
-      logger.debug(@friend_id)
-      if !contract.deadline.blank? then
-        @deadline=contract.deadline.strftime("%Y-%m-%d")
-      end
-    end
+    #@contract_id=params[:contract_id]
+    #if !@contract_id.blank? then
+    #  contract=Contract.find(@contract_id)
+    #  @amount=contract.amount
+    #  @note=contract.note
+    #  @friend_id=contract.friend_id
+    #  logger.debug(@friend_id)
+    #  if !contract.deadline.blank? then
+    #    @deadline=contract.deadline.strftime("%Y-%m-%d")
+    #  end
+    #end
   end
 
 
@@ -71,9 +85,9 @@ class HomeController < ApplicationController
     @contracts =@contracts.where.not(status: "DELETED")
 
 
-    @note_filter_selected=params[:note_filter_selected]
-    if !@note_filter_selected.blank?
-      @contracts =@contracts.where(note: @note_filter_selected)
+    @status_filter_selected=params[:status_filter_selected]
+    if !@status_filter_selected.blank?
+      @contracts =@contracts.where(status: @status_filter_selected)
     end
 
     @friend_filter_selected=params[:friend_filter_selected]
@@ -89,9 +103,9 @@ class HomeController < ApplicationController
       @sum+=contract.amount
     end
 
-    @users =Friend.all
+    @friends = Friend.order(contract_times: "DESC")
     @friend_filter=[]
-    @users.each do |friend|
+    @friends.each do |friend|
       @friend_filter.push([friend.name, friend.id])
     end
   end
@@ -108,11 +122,13 @@ class HomeController < ApplicationController
     record.user_id = params[:contract][:user_id]
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
-    logger.debug("sucsess")
     record.passcode = SecureRandom.hex(4)
-    logger.debug(record.passcode)
     record.status = "UNREAD"
     record.save()
+
+    friend=Friend.find(record.friend_id)
+    friend.contract_times+=1
+    friend.save()
     redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
   end
 
@@ -187,6 +203,7 @@ class HomeController < ApplicationController
     record = Friend.new()
     record.name= params[:name]
     record.user_id= params[:user_id]
+    record.contract_times=0
     record.save()
     friends=Friend.where(user_id: record.user_id)
     html=""
@@ -208,5 +225,118 @@ class HomeController < ApplicationController
 
   end
 
+
+  #通知
+
+  def notice
+
+    if !current_user.blank? then
+      puts "発行"
+      uid=current_user.uid
+
+      require 'line/bot'
+
+      message = {
+        "type": "flex",
+        "altText": "未回収の契約があります。",
+        "contents": {
+          "type": "bubble",
+          "styles": {
+            "body": {
+              "backgroundColor": "#f0f0f0"
+            }
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "未回収の契約",
+                    "size": "lg",
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "text": "以下3件の未回収金を取り立てよう！",
+                    "size": "sm"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "flex": 2,
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "[09/10] 小保方晴子"
+                      },
+                      {
+                        "type": "text",
+                        "text": "[09/10] 田中花子"
+                      },
+                      {
+                        "type": "text",
+                        "text": "[09/10] 五十嵐二郎"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "flex": 1,
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "align": "end",
+                        "text": "5,000円"
+                      },
+                      {
+                        "type": "text",
+                        "align": "end",
+                        "text": "400円"
+                      },
+                      {
+                        "type": "text",
+                        "align": "end",
+                        "text": "2,400円"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "align": "end",
+                "size": "xxs",
+                "color": "#888888",
+                "text": "＊詳細はアプリ内で確認できます"
+              }
+            ]
+          }
+        }
+      }
+
+
+        client = Line::Bot::Client.new { |config|
+        config.channel_secret = ENV['LINE_SECRET']
+        config.channel_token = ENV['LINE_TOKEN']
+      }
+      response = client.push_message(uid, message)
+    end
+  end
 
 end

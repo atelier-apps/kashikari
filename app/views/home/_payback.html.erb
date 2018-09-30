@@ -1,11 +1,11 @@
 <%= form_for Payment.new do |f| %>
-
-<% if @contract.status != "PAID"%>
 <div class="form">
   <%= f.label :amount, "金額" %>
   <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>
 </div>
 <%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
+
+<% if @contract.status != "PAID"%>  
 <div class="form">
   <%= f.submit "返済する", id: "refundButton", data: { disable_with: '処理中' }  %>
 </div>
