@@ -1,10 +1,16 @@
 
-<!--<%= link_to "LINE Login", "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1611112902&redirect_uri=https://1c1e0643.ngrok.io/auth1&state=kashikari&scope=profile" %>
--->
+<% if user_signed_in? %>
+    <div><%=current_user.name %> としてログイン中</div>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% else %>
+    <%= link_to "LINEでログイン", user_line_omniauth_authorize_path %>
+<% end %>
+
 <hr>
 <%= link_to("契約書作成",contract_new_path) %>
 <%= link_to("契約書一覧",contract_list_path) %>
 <%= link_to("友達一覧",friend_list_path) %>
+<%= link_to("通知テスト",notice_path) %>
 <hr>
 <h2>ユーザアカウント</h2>
 <% @friends.each do |friend| %>
