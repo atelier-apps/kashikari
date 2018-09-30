@@ -4,11 +4,14 @@
   <%=parse_amount(balance)%>
 </div>
 <div>
-  相手: <%=@contract.friend_id %>
+  相手: <%=getFriendName %>
+</div>
+<div>
+  貸方: <%=getContractName %>
 </div>
 <div>
   メモ: <%=@contract.note %>
 </div>
 <div>
-  状態: <%=@contract.status %> （<%=@repaymentSum%> ）
+  状態: <%=getContractStatus %> （<%=@repaymentSum%> ）
 </div>
