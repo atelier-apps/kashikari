@@ -230,9 +230,11 @@ class HomeController < ApplicationController
 
   def notice
 
-    if !current_user.blank? then
-      puts "発行"
-      uid=current_user.uid
+    if current_user.blank? then
+
+      @result="ログインされていない"
+
+    else
 
       require 'line/bot'
 
@@ -335,7 +337,8 @@ class HomeController < ApplicationController
         config.channel_secret = ENV['LINE_SECRET']
         config.channel_token = ENV['LINE_TOKEN']
       }
-      response = client.push_message(uid, message)
+      response = client.push_message(current_user.uid, message)
+      @result=current_user.name+"宛に送信しました。"
     end
   end
 
