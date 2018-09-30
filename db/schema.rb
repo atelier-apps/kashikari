@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_09_29_135926) do
+ActiveRecord::Schema.define(version: 2018_09_29_184718) do
 
   create_table "contracts", force: :cascade do |t|
     t.bigint "friend_id"
