@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
+  devise_for :users, controllers: {
+    omniauth_callbacks: "omniauth_callbacks"
+  }
   root to: "home#top"
+  get 'pages/index'
+  get 'pages/show'
+  get "notice" => "home#notice"
   get 'top' => 'home#top'
   get 'contract' => "home#contract"
   get 'contract_new' => "home#contract_new"
@@ -15,7 +21,6 @@ Rails.application.routes.draw do
   post "agreementButton" => "home#agreementButton"
   post "sendAgreement" => "home#sendAgreement"
   get 'friend_list' => "home#friend_list"
-  get "auth1" => "auth#callback"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
