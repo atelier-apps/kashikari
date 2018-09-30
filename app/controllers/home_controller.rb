@@ -82,7 +82,7 @@ class HomeController < ApplicationController
 
   def contract_list
     @contracts =Contract.order(deadline: :asc)
-    @contracts =@contracts.where.not(status: "DELETED")
+    @contracts =@contracts.where(user_id: 1).where.not(status: "DELETED")#ここのユーザーidを後で変数に変更
 
 
     @status_filter_selected=params[:status_filter_selected]
@@ -221,7 +221,7 @@ class HomeController < ApplicationController
   end
 
   def friend_list
-    @friends =Friend.order(updated_at: :desc)
+    @friends =Friend.where(user_id: 1).order(updated_at: :desc)#ここのユーザーidを後で変数に変更
 
   end
 
