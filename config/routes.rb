@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   post "agreementButton" => "home#agreementButton"
   post "sendAgreement" => "home#sendAgreement"
   get 'friend_list' => "home#friend_list"
-  get "auth1" => "auth#callback"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
