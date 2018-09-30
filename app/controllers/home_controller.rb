@@ -5,6 +5,16 @@ class HomeController < ApplicationController
     @payments=Payment.all
     @contracts=Contract.all
     @friends =Friend.all
+    @User =User.all
+
+    if @friends.length==0 then
+      user=User.new
+      user.name="オスプレイ"
+      user.id=1
+      user.save()
+      @User =User.all
+    end
+
     friend_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
     if @friends.length==0 then
       for i in 0..4 do
@@ -16,6 +26,7 @@ class HomeController < ApplicationController
       end
       @friends =Friend.all
     end
+
   end
 
   # 契約書関連
