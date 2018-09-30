@@ -84,7 +84,6 @@ class HomeController < ApplicationController
     @contracts =Contract.order(deadline: :asc)
     @contracts =@contracts.where.not(status: "DELETED")
 
-
     @status_filter_selected=params[:status_filter_selected]
     if !@status_filter_selected.blank?
       @contracts =@contracts.where(status: @status_filter_selected)
@@ -146,7 +145,7 @@ class HomeController < ApplicationController
     contract_id = params[:contract_id]
     passcode = params[:passcode]
     lineSend="https://social-plugins.line.me/lineit/share?url="
-    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?cp=" + contract_id.to_s + "-" + passcode.to_s
+    agreementPage="https://app-kashikari-develop.herokuapp.com/contract_agree?cp=" + contract_id.to_s + "-" + passcode.to_s#passを本番環境ように切りかえる必要アリ
     logger.debug(agreementPage)
     logger.debug(lineSend + agreementPage)
     redirect_to lineSend + agreementPage
