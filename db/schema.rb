@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_184718) do
+
+ActiveRecord::Schema.define(version: 2018_09_29_135926) do
 
   create_table "contracts", force: :cascade do |t|
     t.bigint "friend_id"
@@ -35,6 +36,13 @@ ActiveRecord::Schema.define(version: 2018_09_29_184718) do
   create_table "payments", force: :cascade do |t|
     t.bigint "contract_id"
     t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.text "lineid"
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
