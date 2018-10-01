@@ -112,3 +112,15 @@ function edit_friend(friend_id, previous_name){
   });
 
 }
+
+//画面横向き防止
+$(window).on('load orientationchange resize', function(){
+    if (Math.abs(window.orientation) === 90) {
+        // 横向きになったときの処理
+        $(".restrict-reverse").show();
+
+    } else {
+        // 縦向きになったときの処理
+        $(".restrict-reverse").hide();
+    }
+});
