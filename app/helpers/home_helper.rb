@@ -5,6 +5,13 @@ module HomeHelper
 end
 
 module HomeHelper
+  def getContractStatus
+    statusName=Status.find(@contract.status_id)
+    return statusName.japanese
+  end
+end
+
+module HomeHelper
   def getFriendName
     friendName=Friend.find(@contract.friend_id)
     return friendName.name
