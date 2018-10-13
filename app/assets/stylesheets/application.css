@@ -14,7 +14,8 @@
  *= require_self
  */
  .restrict-reverse {
-   z-index: 200;
+  visibility:hidden;
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
