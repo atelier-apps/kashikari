@@ -27,9 +27,10 @@ ActiveRecord::Schema.define(version: 2018_09_30_062103) do
   create_table "friends", force: :cascade do |t|
     t.bigint "user_id"
     t.text "name"
+    t.bigint "created_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "contract_times"
+    t.integer "contract_times", default: 0
   end
 
   create_table "payments", force: :cascade do |t|
@@ -61,7 +62,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_062103) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.string "name", default: "はじめましての人"
+    t.string "name"
     t.string "description"
     t.string "image"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

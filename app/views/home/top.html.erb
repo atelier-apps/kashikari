@@ -12,10 +12,16 @@
 <%= link_to("友達一覧",friend_list_path) %>
 <%= link_to("通知テスト",notice_path) %>
 <hr>
-<h2>ユーザアカウント</h2>
+<h2>アカウントレコード</h2>
+<% @users.each do |user| %>
+<div>
+  [<%=user.id %>]<%=user.name %>
+</div>
+<% end %>
+<h2>友達レコード</h2>
 <% @friends.each do |friend| %>
 <div>
-  [<%=friend.id %>]<%=friend.name %>
+  [<%=friend.id %>]<%=friend.name %>|<%=friend.created_by %>
 </div>
 <% end %>
 <h2>契約書レコード</h2>
