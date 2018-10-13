@@ -10,6 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require lib/jquery.min
+//= require lib/sweetalert.min
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
