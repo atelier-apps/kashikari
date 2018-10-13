@@ -190,9 +190,7 @@ class HomeController < ApplicationController
     piyo=checkDifference
 
     if piyo<0 then
-      contract_id = params[:payment][:contract_id]
-      redirectUrl = "https://11204008.ngrok.io/contract?contract_id=" + contract_id.to_s
-      return redirect_to redirectUrl , :alert => "0円以下になりました"
+      return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
     elsif piyo==0 then
       contract =Contract.find(params[:payment][:contract_id])
       contract.status_id = 2
