@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   root to: "home#top"
   get 'pages/index'
   get 'pages/show'
-  get "notice" => "home#notice"
   get 'top' => 'home#top'
   get 'contract' => "home#contract"
   get 'contract_new' => "home#contract_new"
