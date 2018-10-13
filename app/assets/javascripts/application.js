@@ -117,10 +117,10 @@ function edit_friend(friend_id, previous_name){
 $(window).on('load orientationchange resize', function(){
     if (Math.abs(window.orientation) === 90) {
         // 横向きになったときの処理
-        $(".restrict-reverse").show();
+        $(".restrict-reverse").css('visibility','visible');
 
     } else {
         // 縦向きになったときの処理
-        $(".restrict-reverse").hide();
+        $(".restrict-reverse").css('visibility','hidden');
     }
 });

@@ -82,11 +82,11 @@ class HomeController < ApplicationController
 
   def contract_list
     @contracts =Contract.order(deadline: :asc)
-    @contracts =@contracts.where.not(status: "DELETED")
+    @contracts =@contracts.where.not(status_id: 4)
 
     @status_filter_selected=params[:status_filter_selected]
     if !@status_filter_selected.blank?
-      @contracts =@contracts.where(status: @status_filter_selected)
+      @contracts =@contracts.where(status_id: @status_filter_selected)
     end
 
     @friend_filter_selected=params[:friend_filter_selected]
@@ -107,6 +107,12 @@ class HomeController < ApplicationController
     @friends.each do |friend|
       @friend_filter.push([friend.name, friend.id])
     end
+
+    @statuses = Status.where(key: ["UNPAID", "PAID"])
+    @status_filter=[]
+    @statuses.each do |status|
+      @status_filter.push([status.japanese, status.id])
+    end
   end
 
   def createContract
@@ -122,7 +128,7 @@ class HomeController < ApplicationController
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
     record.passcode = SecureRandom.hex(4)
-    record.status = "UNREAD"
+    record.status_id = 3
     record.save()
 
     friend=Friend.find(record.friend_id)
@@ -135,7 +141,7 @@ class HomeController < ApplicationController
 
     contract_id=params[:contract_id]
     record = Contract.find(contract_id)
-    record.status = "DELETED"
+    record.status_id = 4
     record.save()
     redirect_to(contract_list_path)
   end
@@ -173,7 +179,7 @@ class HomeController < ApplicationController
   # 契約合意ボタン
   def agreementButton
     contract = Contract.find(params[:contract_id])
-    contract.status = "ACCEPTED"
+    contract.status_id = 5
     contract.save
     redirect_to(contract_agree_path(contract_id: params[:contract_id]))
   end
@@ -191,7 +197,7 @@ class HomeController < ApplicationController
     amount=contract.amount
     payment_sum=payments.sum(:amount)
     if amount==payment_sum then
-      contract.status="PAID"
+      contract.status_id=2
       contract.save()
     end
     redirect_to(contract_list_path)
