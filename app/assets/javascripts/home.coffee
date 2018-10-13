@@ -41,8 +41,3 @@ $ ->
       friend_id=$(this).val()
       if friend_id is ""
         create_friend($(this))
-
-  $("img").click ->
-    if $(this).attr("name") isnt "PAID"
-      $(this).attr('src','/assets/icon_paid-3ac411dfa518fce3e303a57d905e7bdaf9a334bb3cea9d6551a27e433bb48707.png');
-      $(this).addClass('animation-check');
