@@ -21,13 +21,21 @@ $ ->
       $("#refundButton").val("返済する")
     else if inputPrice <= 0
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("1円以上を入力してください")
+      $("#refundButton").val("返済する")
     else if balance < inputPrice
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("返済金額を超えています")
+      $("#refundButton").val("返済する")
     else
       $("#refundButton").prop("disabled", false)
       $("#refundButton").val("部分返済する")
+
+  $("#loaning_price").on 'input', ->
+    console.log($(this).val())
+    inputPrice = Number($(this).val())
+    if inputPrice <= 0
+      $("#makingButton").prop("disabled", true)
+    else
+      $("#makingButton").prop("disabled", false)
 
   $("#contract_friend_id").change ->
       friend_id=$(this).val()
