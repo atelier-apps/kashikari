@@ -15,7 +15,7 @@
   </div>
   <div class="form">
     <%= f.label :friend_id, "相手" %>
-    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達＞" %>
+    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達を追加＞" %>
   </div>
   <div class="form">
     <%= f.hidden_field :user_id, :required => true, value: @user_id %>

@@ -1,31 +1,13 @@
 class HomeController < ApplicationController
+  #認証
+  before_action :authenticate_user!, :except=>[:top]
 
   # デバッグ用画面
   def top
     @payments=Payment.all
     @contracts=Contract.all
     @friends =Friend.all
-    @User =User.all
-
-    if @friends.length==0 then
-      user=User.new
-      user.name="オスプレイ"
-      user.id=1
-      user.save()
-      @User =User.all
-    end
-
-    friend_names=["山田花子","田中太郎","佐藤一郎","鈴木二郎","木村梅子"]
-    if @friends.length==0 then
-      for i in 0..4 do
-        friend=Friend.new
-        friend.name=friend_names[i]
-        friend.user_id=1
-        friend.contract_times=0
-        friend.save()
-      end
-      @friends =Friend.all
-    end
+    @users =User.all
 
   end
 
@@ -33,9 +15,12 @@ class HomeController < ApplicationController
   def contract
     @contract_id=params[:contract_id]
     @contract =Contract.find(@contract_id)
+    if @contract.user_id != current_user.id then
+      redirect_to(top_path)
+    end
     @repaymentSum = 0
     @filtered_payments=Payment.where(contract_id: @contract_id)
-    if  @filtered_payments.blank?
+    if @filtered_payments.blank?
       @repaymentSum = 0
     else
       @repaymentSum=@filtered_payments.sum(:amount)
@@ -44,10 +29,11 @@ class HomeController < ApplicationController
 
   def contract_new
 
-    @user_id=1
+    @user_id=current_user.id
 
     @friend_options=[]
-    friends = Friend.order(contract_times: "DESC")
+    my_friends = Friend.where(created_by: current_user.id)
+    friends = my_friends.order(contract_times: "DESC")
     firstFriend=friends.first
     @friend_id=firstFriend.id
     friends.each do |friend|
@@ -81,8 +67,10 @@ class HomeController < ApplicationController
 
 
   def contract_list
-    @contracts =Contract.order(deadline: :asc)
-    @contracts =@contracts.where.not(status_id: 4)
+
+    my_contracts=Contract.where(user_id: current_user.id)
+    my_contracts =my_contracts.where.not(status_id: 4)
+    @contracts =my_contracts.order(deadline: :asc)
 
     @status_filter_selected=params[:status_filter_selected]
     if !@status_filter_selected.blank?
@@ -102,7 +90,8 @@ class HomeController < ApplicationController
       @sum+=contract.amount
     end
 
-    @friends = Friend.order(contract_times: "DESC")
+    my_friends = Friend.where(created_by: current_user.id)
+    @friends = my_friends.order(contract_times: "DESC")
     @friend_filter=[]
     @friends.each do |friend|
       @friend_filter.push([friend.name, friend.id])
@@ -207,10 +196,10 @@ class HomeController < ApplicationController
   def createFriend
     record = Friend.new()
     record.name= params[:name]
-    record.user_id= params[:user_id]
+    record.created_by=current_user.id
     record.contract_times=0
     record.save()
-    friends=Friend.where(user_id: record.user_id)
+    friends=Friend.where(created_by: record.created_by)
     html=""
     friends.each do |friend|
       html+="<option value='"+friend.id.to_s+"'>"+friend.name+"</option>"
@@ -226,8 +215,8 @@ class HomeController < ApplicationController
   end
 
   def friend_list
-    @friends =Friend.order(updated_at: :desc)
-
+    my_friends =Friend.where(created_by: current_user.id)
+    @friends =my_friends.order(updated_at: :desc)
   end
 
 

@@ -16,13 +16,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
        email = @omniauth['info']['email'] ? @omniauth['info']['email'] : "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
        @profile = current_user || User.create!(provider: @omniauth['provider'], uid: @omniauth['uid'], email: email, name: @omniauth['info']['name'], image: @omniauth['info']['image'], description: @omniauth['info']['description'], password: Devise.friendly_token[0, 20])
        @profile.set_values(@omniauth)
+
+       friend=Friend.new
+       friend.name="名無し"
+       friend.created_by=@profile.id
+       friend.save()
+
        sign_in(:user, @profile)
        # redirect_to edit_user_path(@profile.user.id) and return
 
      end
    end
 
-   flash[:notice] = "ログインしました"
    redirect_to root_path
  end
 
