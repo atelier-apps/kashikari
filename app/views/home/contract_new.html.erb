@@ -7,7 +7,7 @@
   </div>
   <div class="form">
     <%= f.label :amount, "金額" %>
-    <%= f.number_field :amount, :required => true, value: @amount %>
+    <%= f.number_field :amount, id: "loaning_price", :required => true, value: @amount %>
   </div>
   <div class="form">
     <%= f.label :deadline, "期限" %>
@@ -20,7 +20,7 @@
   <div class="form">
     <%= f.hidden_field :user_id, :required => true, value: @user_id %>
     <%= f.hidden_field :id, value: @contract_id %>
-    <%= f.submit "作成する", data: { disable_with: '作成中' }  %>
+    <%= f.submit "作成する", id: "makingButton", data: { disable_with: '作成中' } , :disabled => true %>
   </div>
   <% end %>
 </div>
