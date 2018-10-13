@@ -104,7 +104,7 @@ task :notice_task => :environment do
       config.channel_token = ENV['LINE_TOKEN']
     }
     response = client.push_message(user.uid, message)
-    @result=current_user.name+"宛に送信しました。"
+
 
     puts '---done---'
 end
