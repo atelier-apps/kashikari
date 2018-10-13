@@ -18,5 +18,6 @@ module Kashikari
 
 
     config.time_zone = 'Asia/Tokyo'
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
