@@ -28,7 +28,7 @@
 <% @contracts.each do |contract| %>
       <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
         <div class="main">
-          [<%=contract.id %>-<%=contract.passcode %>] <%=contract.amount %>円 |状態: <%=contract.status %> |種別: <%=contract.note %> |貸方ID: <%=contract.user_id %> |借方: <%=@friends.find(contract.friend_id).name%> |期限: <%=contract.deadline %>|
+          [<%=contract.id %>-<%=contract.passcode %>] <%=contract.amount %>円 |状態: <%=contract.status_id %> |種別: <%=contract.note %> |貸方ID: <%=contract.user_id %> |借方: <%=@friends.find(contract.friend_id).name%> |期限: <%=contract.deadline %>|
         </div>
       </div>
 <% end %>

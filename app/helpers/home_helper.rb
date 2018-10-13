@@ -5,12 +5,6 @@ module HomeHelper
 end
 
 module HomeHelper
-  def getStatusType
-    return ["UNREAD","PAID"]
-  end
-end
-
-module HomeHelper
   def getFriendName
     friendName=Friend.find(@contract.friend_id)
     return friendName.name
@@ -26,10 +20,10 @@ end
 
 module HomeHelper
   def getContractStatus
-    if @contract.status == "UNREAD"
+    if @contract.status == 1
       statusName = "未決済"
-    elsif @contract.status == "PAID"
-      statusName = "決済済み"
+    elsif @contract.status == 2
+      statusName = "決済済"
     else
       statusName = "削除済み"
     end

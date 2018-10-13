@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_062103) do
+ActiveRecord::Schema.define(version: 2018_10_13_070136) do
 
   create_table "contracts", force: :cascade do |t|
     t.bigint "friend_id"
     t.bigint "user_id"
     t.integer "amount"
-    t.text "status"
+    t.string "status_id"
     t.text "note"
     t.date "deadline"
     t.datetime "created_at", null: false
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2018_09_30_062103) do
   create_table "payments", force: :cascade do |t|
     t.bigint "contract_id"
     t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "key"
+    t.string "japanese"
+    t.string "english"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
