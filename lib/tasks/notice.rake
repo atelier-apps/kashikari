@@ -101,7 +101,7 @@ task :notice_task => :environment do
     users=User.all
 
     users.each do |user|
-      make_message(user.id)
+      message=make_message(user.id)
       require 'line/bot'
       client = Line::Bot::Client.new { |config|
         config.channel_secret = ENV['LINE_SECRET']
