@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_10_13_070136) do
     t.bigint "friend_id"
     t.bigint "user_id"
     t.integer "amount"
-    t.text "status"
+    t.string "status_id"
     t.text "note"
     t.date "deadline"
     t.datetime "created_at", null: false
