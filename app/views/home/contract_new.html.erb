@@ -11,7 +11,7 @@
   </div>
   <div class="form">
     <%= f.label :deadline, "期限" %>
-    <%= f.date_field :deadline, value: @deadline %>
+    <%= f.date_field :deadline, value: @deadline, :required => true %>
   </div>
   <div class="form">
     <%= f.label :friend_id, "相手" %>

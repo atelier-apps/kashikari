@@ -40,6 +40,10 @@ class HomeController < ApplicationController
       @friend_options.push([friend.name,friend.id])
     end
 
+    require "date"
+    date = Date.today
+    @deadline=date +7
+
     #@contract_id=params[:contract_id]
     #if !@contract_id.blank? then
     #  contract=Contract.find(@contract_id)

@@ -1,6 +1,45 @@
 task :notice_task => :environment do
 
-    def make_message(id)
+    def make_message(contracts)
+      deadline_contents=[]
+      amount_contents=[]
+      contracts.each do |contract|
+        deadline_date="--/--"
+        if !contract.deadline.blank? then
+          deadline_date=contract.deadline.month.to_s+"/"+contract.deadline.day.to_s
+        end
+
+        deadline_contents.push({
+          "type": "text",
+          "text": ""+deadline_date+" "+Friend.find(contract.friend_id).name
+        })
+        amount_contents.push({
+          "type": "text",
+          "align": "end",
+          "text": contract.amount.to_s+"円"
+        })
+      end
+
+      deadline={
+        "type": "box",
+        "layout": "vertical",
+        "flex": 2,
+        "spacing": "sm",
+        "contents": deadline_contents
+      }
+      amount={
+        "type": "box",
+        "layout": "vertical",
+        "flex": 1,
+        "spacing": "sm",
+        "contents": amount_contents
+      }
+
+      contents=[]
+      contents.push(deadline)
+      contents.push(amount)
+
+
       message = {
         "type": "flex",
         "altText": "未回収の契約があります。",
@@ -23,13 +62,13 @@ task :notice_task => :environment do
                 "contents": [
                   {
                     "type": "text",
-                    "text": "未回収の契約"+id.to_s,
+                    "text": "未回収の契約",
                     "size": "lg",
                     "weight": "bold"
                   },
                   {
                     "type": "text",
-                    "text": "以下3件の未回収金を取り立てよう！",
+                    "text": "期限の過ぎている契約が"+contracts.length.to_s+"件あります",
                     "size": "sm"
                   }
                 ]
@@ -37,51 +76,7 @@ task :notice_task => :environment do
               {
                 "type": "box",
                 "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "flex": 2,
-                    "spacing": "sm",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "[09/10] 小保方晴子"
-                      },
-                      {
-                        "type": "text",
-                        "text": "[09/10] 田中花子"
-                      },
-                      {
-                        "type": "text",
-                        "text": "[09/10] 五十嵐二郎"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "flex": 1,
-                    "spacing": "sm",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "align": "end",
-                        "text": "5,000円"
-                      },
-                      {
-                        "type": "text",
-                        "align": "end",
-                        "text": "400円"
-                      },
-                      {
-                        "type": "text",
-                        "align": "end",
-                        "text": "2,400円"
-                      }
-                    ]
-                  }
-                ]
+                "contents": contents
               },
               {
                 "type": "text",
@@ -98,15 +93,27 @@ task :notice_task => :environment do
     end
 
 
-    users=User.all
+    require "date"
+    date = Date.today
 
-    users.each do |user|
-      message=make_message(user.id)
-      require 'line/bot'
-      client = Line::Bot::Client.new { |config|
-        config.channel_secret = ENV['LINE_SECRET']
-        config.channel_token = ENV['LINE_TOKEN']
-      }
-      response = client.push_message(user.uid, message)
+    if date.day!=25 then
+      users=User.all
+      users.each do |user|
+        my_contracts=Contract.where(user_id: user.id)
+        my_contracts=my_contracts.where("deadline < ? or deadline is NULL", date)
+        status=Status.where(key: "PAID")[0]
+        contracts=my_contracts.where.not(status_id: status.id)
+
+        if contracts.length>0 then
+          message=make_message(contracts)
+          require 'line/bot'
+          client = Line::Bot::Client.new { |config|
+            config.channel_secret = ENV['LINE_SECRET']
+            config.channel_token = ENV['LINE_TOKEN']
+          }
+          response = client.push_message(user.uid, message)
+        end
+      end
     end
+
 end
