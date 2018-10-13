@@ -24,16 +24,3 @@ module HomeHelper
     return contractName.name
   end
 end
-
-module HomeHelper
-  def getContractStatus
-    if @contract.status == 1
-      statusName = "未決済"
-    elsif @contract.status == 2
-      statusName = "決済済"
-    else
-      statusName = "削除済み"
-    end
-      return statusName
-  end
-end
