@@ -206,7 +206,7 @@ class HomeController < ApplicationController
     record.contract_id = params[:payment][:contract_id]
     record.save()
 
-    redirect_to(contract_list_path)
+    redirect_back(fallback_location: contract_list_path)
   end
 
   # 友達関連

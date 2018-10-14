@@ -13,10 +13,16 @@ task :notice_task => :environment do
           "type": "text",
           "text": ""+deadline_date+" "+Friend.find(contract.friend_id).name
         })
+
+        repaymentSum = 0
+        filtered_payments=Payment.where(contract_id: contract.id)
+        if !filtered_payments.blank?
+          repaymentSum=filtered_payments.sum(:amount)
+        end
         amount_contents.push({
           "type": "text",
           "align": "end",
-          "text": contract.amount.to_s+"円"
+          "text": (contract.amount-repaymentSum).to_s+"円"
         })
       end
 
@@ -101,8 +107,8 @@ task :notice_task => :environment do
       users.each do |user|
         my_contracts=Contract.where(user_id: user.id)
         my_contracts=my_contracts.where("deadline < ? or deadline is NULL", date)
-        status=Status.where(key: "PAID")[0]
-        contracts=my_contracts.where.not(status_id: status.id)
+        status=Status.where(key: "UNPAID")[0]
+        contracts=my_contracts.where(status_id: status.id)
 
         if contracts.length>0 then
           message=make_message(contracts)
