@@ -115,6 +115,50 @@ function edit_friend(friend_id, previous_name){
 
 }
 
+function delete_contract(contract_id){
+  swal({
+    text: "本当に削除しますか",
+    content: "confirm",
+    buttons: true,
+    dangerMode: true
+  }).then(function(value){
+    if(value==true){
+      $.ajax({
+        url: '/deleteContract',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        data: {
+          contract_id: contract_id
+        }
+      }).done(function(data){
+        swal({
+          text: "削除しました",
+          icon: "success",
+          buttons: false,
+          timer: 2500
+        }).then((value) => {
+          location="./contract_list"
+        });
+      }).fail(function(data){
+        swal({
+          text: "失敗しました",
+          icon: "error",
+          buttons: false,
+          timer: 2500
+        });
+      });
+    }else{
+      swal({
+        text: "キャンセルしました",
+        icon: "warning",
+        buttons: false,
+        timer: 2500
+      });
+    }
+  });
+}
+
 //画面横向き防止
 $(window).on('load orientationchange resize', function(){
     if (Math.abs(window.orientation) === 90) {

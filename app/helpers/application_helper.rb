@@ -5,11 +5,8 @@ module ApplicationHelper
   def parse_amount(amount)
     return amount.to_s+"円"
   end
-  def get_status_id_by_key(key)
-    return Status.where(key: key)[0].id
-  end
   def parse_status(status)
-    if status=="2" then
+    if status==get_status_id_by_key("PAID") then
       return image_tag("icon_paid.png", name: status)
     end
       return image_tag("icon_unpaid.png", name: status)
