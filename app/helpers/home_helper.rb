@@ -1,8 +1,4 @@
 module HomeHelper
-  def getEventType
-    return ["立て替え","飲み会","旅行"]
-  end
-
   def getContractStatus
     statusName=Status.find(@contract.status_id)
     return statusName.japanese
