@@ -211,6 +211,12 @@ class HomeController < ApplicationController
 
   # 友達関連
   def createFriend
+
+    same_friends=Friend.where(name: params[:name])
+    if same_friends.length>0 then
+      return false
+    end
+
     record = Friend.new()
     record.name= params[:name]
     record.created_by=current_user.id

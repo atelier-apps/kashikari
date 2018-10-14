@@ -20,7 +20,7 @@
   <div class="form">
     <%= f.hidden_field :user_id, :required => true, value: @user_id %>
     <%= f.hidden_field :id, value: @contract_id %>
-    <%= f.submit "作成する", id: "makingButton", data: { disable_with: '作成中' } , :disabled => true %>
+    <%= f.submit "作成する", id: "makingButton", data: { disable_with: '処理中' } , :disabled => true %>
   </div>
   <% end %>
 </div>

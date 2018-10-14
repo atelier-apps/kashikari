@@ -53,9 +53,21 @@ function create_friend(select){
           select.html(data.html)
           select.val(data.friend_id)
         }else{
+          swal({
+            text: "すでに存在する名前です",
+            icon: "error",
+            buttons: false,
+            timer: 2500
+          });
           select.val(1)
         }
       }).fail(function(data){
+        swal({
+          text: "失敗しました",
+          icon: "error",
+          buttons: false,
+          timer: 2500
+        });
         select.val(1)
       });
     }
