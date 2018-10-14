@@ -13,7 +13,6 @@
   <% end %>
   <button onclick="delete_contract(<%=@contract_id %>);">削除</button>
 <% end %>
-
 <div>
 <div>返済歴</div>
 <div class="paybeck-list-area">
@@ -30,4 +29,8 @@
       </div>
 <% end %>
 </div>
+</div>
+
+<div class="content">
+  <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
 </div>
