@@ -8,7 +8,6 @@ class HomeController < ApplicationController
     @contracts=Contract.all
     @friends =Friend.all
     @users =User.all
-
   end
 
   # 契約書関連
