@@ -13,6 +13,10 @@ module HomeHelper
     return friendName.name
   end
 
+  def getContractDeadline
+    return @contract.deadline
+  end
+
   def getContractName
     contractName=User.find(@contract.user_id)
     return contractName.name

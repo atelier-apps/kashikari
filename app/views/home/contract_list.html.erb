@@ -10,11 +10,11 @@
 </div>
 <div class="list-area">
   <% @contracts.each do |contract| %>
-        <div class="list">
+        <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
           <div class="checkbox">
            <%=parse_status(contract.status_id) %>
           </div>
-          <div class="main" onclick="window.location='contract?contract_id=<%=contract.id%>';">
+          <div class="main">
             <div class="main-content">
               <div><%=@friends.find(contract.friend_id).name%></div>
               <div><%=contract.note %> <%=contract.deadline %></div>
