@@ -6,7 +6,7 @@ task :notice_task => :environment do
       contracts.each do |contract|
         deadline_date="--/--"
         if !contract.deadline.blank? then
-          deadline_date=contract.deadline.month.to_s+"/"+contract.deadline.day.to_s
+          deadline_date=contract.deadline.strftime("%m/%d")
         end
 
         deadline_contents.push({
