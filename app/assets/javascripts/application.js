@@ -117,7 +117,6 @@ function edit_friend(friend_id, previous_name){
 
 function delete_contract(contract_id){
   swal({
-    title: "あ",
     text: "本当に削除しますか",
     content: "confirm",
     buttons: true,
