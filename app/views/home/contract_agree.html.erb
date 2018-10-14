@@ -2,3 +2,21 @@
 <div class="content">
   <%= render partial: "detail" %>
 </div>
+
+<div>
+<div>返済歴</div>
+<div class="paybeck-list-area">
+  <div class="payback-list">
+    <div class="main">
+      [貸付] <%=parse_time(@contract.created_at) %>|出 <%=parse_amount(@contract.amount) %>
+    </div>
+  </div>
+<% @filtered_payments.each do |payment| %>
+      <div class="payback-list">
+        <div class="main">
+          [回収] <%=parse_time(payment.created_at) %>|入 <%=parse_amount(payment.amount) %>
+        </div>
+      </div>
+<% end %>
+</div>
+</div>
