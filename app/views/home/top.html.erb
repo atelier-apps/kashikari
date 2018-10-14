@@ -1,8 +1,3 @@
-<script>
-swal("Good job!", "You clicked the button!", "success");
-</script>
-
-
 <% if user_signed_in? %>
     <div><%=current_user.name %> としてログイン中</div>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
