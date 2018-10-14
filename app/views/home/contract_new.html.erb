@@ -2,20 +2,20 @@
 <div class="content">
   <%= form_for Contract.new do |f| %>
   <div class="form">
-    <%= f.label :note, "イベント" %>
-    <%= f.select :note, getEventType, :selected => @note, :required => true %>
-  </div>
-  <div class="form">
     <%= f.label :amount, "金額" %>
     <%= f.number_field :amount, id: "loaning_price", :required => true, value: @amount %>
+  </div>
+  <div class="form">
+    <%= f.label :friend_id, "相手" %>
+    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達を追加＞" %>
   </div>
   <div class="form">
     <%= f.label :deadline, "期限" %>
     <%= f.date_field :deadline, value: @deadline, :required => true %>
   </div>
   <div class="form">
-    <%= f.label :friend_id, "相手" %>
-    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達を追加＞" %>
+    <%= f.label :note, "メモ" %>
+    <%= f.text_field :note %>
   </div>
   <div class="form">
     <%= f.hidden_field :user_id, :required => true, value: @user_id %>
