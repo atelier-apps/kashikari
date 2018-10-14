@@ -38,6 +38,6 @@ $ ->
       $("#makingButton").prop("disabled", false)
 
   $("#contract_friend_id").change ->
-      friend_id=$(this).val()
-      if friend_id is ""
-        create_friend($(this))
+    friend_id=$(this).val()
+    if friend_id is ""
+      create_friend($(this))

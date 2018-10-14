@@ -18,6 +18,10 @@ class HomeController < ApplicationController
     if @contract.user_id != current_user.id then
       redirect_to(top_path)
     end
+
+    if @contract.status_id==view_context.get_status_id_by_key("DELETED") then
+      redirect_to(contract_list_path)
+    end
     @repaymentSum = 0
     @filtered_payments=Payment.where(contract_id: @contract_id)
     if @filtered_payments.blank?
@@ -73,7 +77,7 @@ class HomeController < ApplicationController
   def contract_list
 
     my_contracts=Contract.where(user_id: current_user.id)
-    my_contracts =my_contracts.where.not(status_id: 4)
+    my_contracts =my_contracts.where.not(status_id: view_context.get_status_id_by_key("DELETED"))
     @contracts =my_contracts.order(deadline: :asc)
 
     @status_filter_selected=params[:status_filter_selected]
@@ -121,7 +125,7 @@ class HomeController < ApplicationController
     record.friend_id = params[:contract][:friend_id]
     record.deadline = params[:contract][:deadline]
     record.passcode = SecureRandom.hex(4)
-    record.status_id = 3
+    record.status_id = view_context.get_status_id_by_key("UNPAID")
     record.save()
 
     friend=Friend.find(record.friend_id)
@@ -131,12 +135,11 @@ class HomeController < ApplicationController
   end
 
   def deleteContract
-
     contract_id=params[:contract_id]
     record = Contract.find(contract_id)
-    record.status_id = 4
+    record.status_id = view_context.get_status_id_by_key("DELETED")
     record.save()
-    redirect_to(contract_list_path)
+    return true
   end
 
   #契約の控えを相手に送る
@@ -169,19 +172,11 @@ class HomeController < ApplicationController
     end
   end
 
-  # 契約合意ボタン
-  def agreementButton
-    contract = Contract.find(params[:contract_id])
-    contract.status_id = 5
-    contract.save
-    redirect_to(contract_agree_path(contract_id: params[:contract_id]))
-  end
 
   # 返済関連
   def createPayment
 
     def checkDifference
-      hoge=0
       contract =Contract.find(params[:payment][:contract_id])
       payments=Payment.where(contract_id: params[:payment][:contract_id])
       amount=contract.amount
@@ -191,13 +186,18 @@ class HomeController < ApplicationController
       return difference
     end
 
-    piyo=checkDifference
+    contract =Contract.find(params[:payment][:contract_id])
 
-    if piyo<0 then
+    if contract.status_id==view_context.get_status_id_by_key("DELETED") then
+      return redirect_to(contract_list_path)
+    end
+
+    difference=checkDifference
+
+    if difference<0 then
       return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
-    elsif piyo==0 then
-      contract =Contract.find(params[:payment][:contract_id])
-      contract.status_id = 2
+    elsif difference==0 then
+      contract.status_id = view_context.get_status_id_by_key("PAID")
       contract.save()
     end
 

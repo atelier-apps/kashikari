@@ -1,4 +1,4 @@
-<% if @contract.status_id != "2" %>
+<% if @contract.status_id != get_status_id_by_key("PAID") %>
   <%= form_for Payment.new do |f| %>
   <div class="form">
     <%= f.label :amount, "金額" %>
@@ -11,6 +11,7 @@
     <%= f.submit "返済する", id: "refundButton", data: { disable_with: '処理中' }  %>
   </div>
   <% end %>
+  <button onclick="delete_contract(<%=@contract_id %>);">削除</button>
 <% end %>
 
 <div>
