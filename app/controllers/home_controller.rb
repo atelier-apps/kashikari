@@ -195,6 +195,7 @@ class HomeController < ApplicationController
     difference=checkDifference
 
     if difference<0 then
+      flash[:amount_error] = "返済金額を超過していたので、登録しませんでした"
       return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
     elsif difference==0 then
       contract.status_id = view_context.get_status_id_by_key("PAID")

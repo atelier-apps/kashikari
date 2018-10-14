@@ -1,3 +1,4 @@
+
 <% if @contract.status_id != get_status_id_by_key("PAID") %>
   <%= form_for Payment.new do |f| %>
   <div class="form">
@@ -13,7 +14,7 @@
   <% end %>
   <button onclick="delete_contract(<%=@contract_id %>);">削除</button>
 <% end %>
-
+<%= flash[:amount_error] %>
 <div class="content" style="margin:10px;">
   <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
 </div>
