@@ -15,7 +15,7 @@ class HomeController < ApplicationController
     @contract_id=params[:contract_id]
     @contract =Contract.find(@contract_id)
     if @contract.user_id != current_user.id then
-      redirect_to(contract_list)
+      redirect_to(contract_list_path)
     end
 
     if @contract.status_id==view_context.get_status_id_by_key("DELETED") then
@@ -66,7 +66,7 @@ class HomeController < ApplicationController
     @contract_id=params[:contract_id]
     @passcode=params[:passcode]
     if @contract_id.blank?
-      redirect_to(contract_list)
+      redirect_to(contract_list_path)
     else
       @contract =Contract.find(@contract_id)
     end
@@ -167,7 +167,7 @@ class HomeController < ApplicationController
         @repaymentSum=@filtered_payments.sum(:amount)
       end
     else
-      redirect_to(contract_list)
+      redirect_to(contract_list_path)
     end
   end
 
