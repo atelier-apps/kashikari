@@ -236,6 +236,10 @@ class HomeController < ApplicationController
     @friends =my_friends.order(updated_at: :desc)
   end
 
+  def goBackList
+    return redirect_to(contract_list_path)
+  end
+
 
 
 end

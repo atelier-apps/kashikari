@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "createFriend" => "home#createFriend"
   post "editFriend" => "home#editFriend"
   post "sendAgreement" => "home#sendAgreement"
+  post "goBackList" => "home#goBackList"
   get 'friend_list' => "home#friend_list"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
