@@ -102,7 +102,7 @@ task :notice_task => :environment do
     require "date"
     date = Date.today
 
-    if date.day!=25 then
+    if date.day==25 then
       users=User.all
       users.each do |user|
         my_contracts=Contract.where(user_id: user.id)
