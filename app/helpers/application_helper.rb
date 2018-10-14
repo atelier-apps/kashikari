@@ -9,7 +9,7 @@ module ApplicationHelper
     return Status.where(key: key)[0].id
   end
   def parse_status(status)
-    if status=="PAID" then
+    if status=="2" then
       return image_tag("icon_paid.png", name: status)
     end
       return image_tag("icon_unpaid.png", name: status)

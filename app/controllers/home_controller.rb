@@ -178,21 +178,34 @@ class HomeController < ApplicationController
   end
 
   # 返済関連
-
   def createPayment
+
+    def checkDifference
+      hoge=0
+      contract =Contract.find(params[:payment][:contract_id])
+      payments=Payment.where(contract_id: params[:payment][:contract_id])
+      amount=contract.amount
+      current_payment = params[:payment][:amount].to_i
+      payment_sum=payments.sum(:amount).to_i
+      difference = amount - payment_sum - current_payment
+      return difference
+    end
+
+    piyo=checkDifference
+
+    if piyo<0 then
+      return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
+    elsif piyo==0 then
+      contract =Contract.find(params[:payment][:contract_id])
+      contract.status_id = 2
+      contract.save()
+    end
+
     record = Payment.new()
     record.amount =params[:payment][:amount]
     record.contract_id = params[:payment][:contract_id]
     record.save()
-    #返済完了判定
-    contract =Contract.find(record.contract_id)
-    payments=Payment.where(contract_id: record.contract_id)
-    amount=contract.amount
-    payment_sum=payments.sum(:amount)
-    if amount==payment_sum then
-      contract.status_id=2
-      contract.save()
-    end
+
     redirect_to(contract_list_path)
   end
 
