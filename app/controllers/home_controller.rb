@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   #認証
-  before_action :authenticate_user!, :except=>[:top]
+  before_action :authenticate_user!, :except=>[:top, :contract_agree]
 
   # デバッグ用画面
   def top
