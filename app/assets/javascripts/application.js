@@ -138,7 +138,7 @@ function delete_contract(contract_id){
           buttons: false,
           timer: 2500
         }).then((value) => {
-          location="./contract_list"
+          location.reload()
         });
       }).fail(function(data){
         swal({
