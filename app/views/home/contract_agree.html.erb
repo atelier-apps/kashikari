@@ -1,3 +1,6 @@
+<% if @contract.status_id==get_status_id_by_key("DELETED") then %>
+  <div class="contract-area">この契約書は貸方により削除されました</div>
+<% else %>
 <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
   <div class="title">契約書</div>
       <%= render partial: "detail" %>
@@ -6,3 +9,4 @@
 <div class="sub-area">
   <%= render partial: "history" %>
 </div>
+<% end %>

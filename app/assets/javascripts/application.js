@@ -131,14 +131,15 @@ function edit_friend(friend_id, previous_name){
 }
 
 function delete_contract(contract_id){
+
   swal({
     text: "本当に削除しますか",
-    content: "confirm",
-    buttons: true,
-    dangerMode: true,
-    showCloseButton: true,
-  }).then(function(value){
-    if(value==true){
+    type: "question",
+    showConfirmButton: true,
+    showCancelButton: true,
+  }).then(function(data){
+    console.log(data);
+    if(data.dismiss==null){
       $.ajax({
         url: '/deleteContract',
         type: 'POST',
@@ -147,16 +148,16 @@ function delete_contract(contract_id){
         data: {
           contract_id: contract_id
         }
-      }).done(function(data){
+      }).done(function(data2){
         swal({
           text: "削除しました",
           type: "success",
           showConfirmButton: false,
           timer: 2500
-        }).then((value) => {
+        }).then((data3) => {
           location.reload()
         });
-      }).fail(function(data){
+      }).fail(function(data2){
         swal({
           text: "失敗しました",
           type: "error",
@@ -173,6 +174,14 @@ function delete_contract(contract_id){
       });
     }
   });
+}
+
+function option(contract_id){
+  swal({
+    showCloseButton: true,
+    showConfirmButton: false,
+    html: $("#option").get(0)
+    });
 }
 
 //画面横向き防止

@@ -16,9 +16,9 @@ $color-base-black: #555555;
 $color-base-dark: #b9b9b9;
 $color-base-label: #b9b9b9;
 $color-base-pale: #ffffff;
-$color-main: #51a1a2;
-$color-accent: #b90000;
 $color-font: #777777;
+$color-main: #00b900;
+$color-accent: #b90000;
 
 $color-other-header: #555555;
 
@@ -68,7 +68,7 @@ input:not(.swal2-input),textarea,select{
 }
 
 // ボタン系統
-button:not(.swal2-close):not(.swal2-confirm),input[type="button"],input[type="submit"] {
+button:not(.swal2-styled),input[type="button"],input[type="submit"],div.button {
   -webkit-appearance: none;
   background-color:$color-main;
   border: none;
@@ -81,6 +81,9 @@ button:not(.swal2-close):not(.swal2-confirm),input[type="button"],input[type="su
   -webkit-touch-callout:none;
   user-select:none;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items:center;
   &.sub{
     background-color: $color-base-dark;
   }
@@ -94,6 +97,17 @@ div{
   &.swal2-modal{
     width: 95%;
     zoom:300%;
+  }
+
+  &.hidden{
+    display: none;
+  }
+  &.alert-content{
+    padding: 1vw 3vw;
+    button,input[type="button"],input[type="submit"],div.button {
+      zoom:30%;
+      margin: 3vw 0;
+    }
   }
 
   &.header{
@@ -292,4 +306,8 @@ div{
     100% {
         transform: scale(1) rotateZ(0deg);
     }
+}
+//makingButton
+#makingButton{
+  margin-top: 5vw;
 }
