@@ -1,10 +1,10 @@
-<div class="title">契約書完了</div>
-<div class="content">
+<div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
+  <div class="title">契約書</div>
   <%= render partial: "detail" %>
+  <div class="form">
+    <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
+  </div>
 </div>
-<div class="content" style="margin:10px;">
-  <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
-</div>
-<div class="content" style="margin:10px;">
-  <%= button_to "一覧に戻る", goBackList_path(contract_id: @contract.id, passcode: @contract.passcode) %>
+<div class="sub-area">
+  <%= button_to "一覧に戻る", goBackList_path(contract_id: @contract.id, passcode: @contract.passcode), {:class=> "sub"} %>
 </div>

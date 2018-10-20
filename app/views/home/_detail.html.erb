@@ -1,20 +1,24 @@
 <% balance=@contract.amount - @repaymentSum%>
-
-<div id = "contractBalance" data-balance = "<%=balance%>">
-  <%=parse_amount(balance)%>
-</div>
-<div>
-  相手: <%=getFriendName %>
-</div>
-<div>
-  期限: <%=getContractDeadline %>
-</div>
-<div>
-  貸方: <%=getContractName %>
-</div>
-<div>
-  メモ: <%=@contract.note %>
-</div>
-<div>
-  状態: <%=getContractStatus %>
+<div class="detail-main">
+  <div id = "contractBalance" data-balance = "<%=balance%>" class="detail-line">
+    <div class="detail-label">残高</div><div class="detail-content"><%=parse_amount(balance)%></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">期限</div><div class="detail-content"><%=parse_date(@contract.deadline) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">借方</div><div class="detail-content"><%=getFriendName(@contract.friend_id) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">貸方</div><div class="detail-content"><%=getUserName(@contract.user_id) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">請求額</div><div class="detail-content"><%=parse_amount(@contract.amount) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">作成日</div><div class="detail-content"><%=parse_date(@contract.created_at) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">メモ</div><div class="detail-content"><%=@contract.note %></div>
+  </div>
 </div>
