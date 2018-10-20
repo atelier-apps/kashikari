@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // サイズ
-$font-size: 5vw;
+$font-size: 4.5vw;
 $form-width: 50vw;
 $form-height: 15vw;
 $form-radius: 1.8vw;
@@ -13,16 +13,17 @@ $header-height: 5em;
 // 色彩
 $color-base: #fcfcfc;
 $color-base-black: #555555;
-$color-base-dark: #cccccc;
+$color-base-dark: #b9b9b9;
+$color-base-label: #b9b9b9;
 $color-base-pale: #ffffff;
 $color-main: #51a1a2;
-$color-accent: #a25251;
+$color-accent: #b90000;
+$color-font: #777777;
 
 $color-other-header: #555555;
 
 
 html{
-  background-color:$color-other-header;
   box-sizing: border-box;
 }
 
@@ -32,14 +33,14 @@ body{
   padding: 0;
   background-color: $color-base;
   box-sizing: border-box;
-  color: $color-base-black;
+  color: $color-font;
   font-family: sans-serif;
   font-size:$font-size;
   width: 100%;
 }
 
 //入力欄系統
-input:not(.swal-content__input),textarea,select{
+input:not(.swal2-input),textarea,select{
   -webkit-appearance: none;
   background-color: $color-base-pale;
   border: 1px solid $color-base-dark;
@@ -67,7 +68,7 @@ input:not(.swal-content__input),textarea,select{
 }
 
 // ボタン系統
-button:not(.swal-button),input[type="button"],input[type="submit"] {
+button:not(.swal2-close):not(.swal2-confirm),input[type="button"],input[type="submit"] {
   -webkit-appearance: none;
   background-color:$color-main;
   border: none;
@@ -80,6 +81,9 @@ button:not(.swal-button),input[type="button"],input[type="submit"] {
   -webkit-touch-callout:none;
   user-select:none;
   width: 100%;
+  &.sub{
+    background-color: $color-base-dark;
+  }
   &:disabled{
     background-color: $color-base-dark;
   }
@@ -87,7 +91,7 @@ button:not(.swal-button),input[type="button"],input[type="submit"] {
 
 div{
 
-  &.swal-modal{
+  &.swal2-modal{
     width: 95%;
     zoom:300%;
   }
@@ -121,12 +125,22 @@ div{
     padding: $header-height 0 50vh 0;
   }
 
-  &.paybeck-list-area{
-    height: 20vh;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
-    padding: 0;
+  &.history-area{
+    .detail-line{
+      display: flex;
+      border-top : solid 1px $color-base-dark;
+      padding: 3vw 0;
+      &:last-child{
+        border-bottom: solid 1px $color-base-dark;
+      }
+      .detail-label{
+        width: 50%;
+      }
+      .detail-content{
+        width: 50%;
+        text-align: right;
+      }
+    }
   }
   &.menu{
     z-index: 100;
@@ -143,7 +157,6 @@ div{
     margin: 0.5em 0;
   }
   &.title{
-    padding-top: 1em;
     font-size: 1.5em;
     text-align: center;
   }
@@ -203,6 +216,65 @@ div{
       content: "〉";
       color: $color-base-dark;
     }
+  }
+
+
+
+
+  &.contract-area{
+    box-shadow:2px 2px 6px 2px rgba(0,0,0,0.2);
+    margin: 1em;
+    padding: 10vw;
+    position: relative;
+    background-color: $color-base-pale;
+    &::before{
+      position: absolute;
+      top:0;
+      left: 0;
+      font-size: 0.8em;
+      color: $color-base-pale;
+      background-color: $color-base-label;
+      padding: 0.2em 1em;
+    }
+    &.status-UNPAID::before{
+      content: "未返済";
+      color: $color-base-pale;
+      background-color: $color-base-label;
+    }
+    &.status-PAID::before{
+      content: "完済";
+      color: $color-base-pale;
+      background-color: $color-accent;
+    }
+    .option{
+      display: flex;
+      position: absolute;
+      top:10vw;
+      right: 10vw;
+      justify-content: flex-end;
+    }
+
+    .detail-main{
+      font-size: 1.2em;
+      margin: 0.5em 0;
+      line-height: 2em;
+    }
+    .detail-sub{
+
+    }
+    .detail-line{
+      display: flex;
+      .detail-label{
+        width: 30%;
+      }
+      .detail-content{
+        width: 70%;
+      }
+    }
+  }
+  &.sub-area{
+    margin: 1em;
+    padding: 0.8em 2.2em;
   }
 }
 

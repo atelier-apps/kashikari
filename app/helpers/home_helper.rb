@@ -4,18 +4,12 @@ module HomeHelper
     return statusName.japanese
   end
 
-  def getFriendName
-    friendName=Friend.find(@contract.friend_id)
-    return friendName.name
+  def getFriendName(friend_id)
+    return Friend.find(friend_id).name
   end
 
-  def getContractDeadline
-    return @contract.deadline
-  end
-
-  def getContractName
-    contractName=User.find(@contract.user_id)
-    return contractName.name
+  def getUserName(user_id)
+    return User.find(user_id).name
   end
 
   def get_status_id_by_key(key)

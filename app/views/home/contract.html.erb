@@ -1,7 +1,16 @@
-<div class="title">契約書詳細</div>
-<div class="content">
+<div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
+  <div class="title">契約書</div>
+  <div class="option">
+    <%= link_to image_tag('icon_option.png', { :border => '0', :alt => 'オプション'}), top_path %>
+  </div>
   <%= render partial: "detail" %>
-</div>
-<div class="content">
   <%= render partial: "payback" %>
 </div>
+<% if @filtered_payments.length>0 then %>
+  <div class="sub-area">
+    <%= render partial: "history" %>
+  </div>
+<% end %>
+-----
+  <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
+  <button onclick="delete_contract(<%=@contract_id %>);">削除</button>

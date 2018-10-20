@@ -11,23 +11,23 @@
 // about supported directives.
 //
 //= require lib/jquery.min
-//= require lib/sweetalert.min
+//= require lib/sweetalert2.min
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
 
 function create_friend(select){
   swal({
-    title: "友達の新規作成",
-    text: "新しい友達の名前を入力します",
-    content: "input",
-    button: "追加"
-  }).then(function(value){
-    if(value==null||value==false||value===""){
+    text: "新しい友達の名前",
+    showCloseButton: true,
+    input: 'text',
+    confirmButtonText: '保存',
+  }).then(function(data){
+    if(data.dismiss!=null){
       swal({
         text: "キャンセルしました",
-        icon: "warning",
-        buttons: false,
+        type: "warning",
+        showConfirmButton: false,
         timer: 2500
       });
       select.val(1);
@@ -38,25 +38,24 @@ function create_friend(select){
         dataType: 'json',
         async: false,
         data: {
-          name: value,
+          name: data.value,
           user_id: 1
         }
-      }).done(function(data){
-        console.log(data);
-        if(data!=null){
+      }).done(function(data2){
+        console.log(data2);
+        if(data2!=null){
           swal({
-            text: value+"を追加しました",
-            icon: "success",
-            buttons: false,
+            text: data.value+"を追加しました",
+            type: "success",
+            showConfirmButton: false,
             timer: 2500
           });
-          select.html(data.html)
-          select.val(data.friend_id)
+          select.html(data2.html)
+          select.val(data2.friend_id)
         }else{
           swal({
             text: "すでに存在する名前です",
-            icon: "error",
-            buttons: false,
+            type: "error",
             timer: 2500
           });
           select.val(1)
@@ -64,8 +63,8 @@ function create_friend(select){
       }).fail(function(data){
         swal({
           text: "失敗しました",
-          icon: "error",
-          buttons: false,
+          type: "error",
+          showConfirmButton: false,
           timer: 2500
         });
         select.val(1)
@@ -78,18 +77,21 @@ function create_friend(select){
 
 function edit_friend(friend_id, previous_name){
   swal({
-    title: "友達の編集",
-    text: "友達の名前を編集します",
-    content: {
-      element: "input",
-      attributes: {
-        placeholder: "山田太郎",
-        value: previous_name
-      }
+    text: "友達の名前を変更",
+    showCloseButton: true,
+    input: 'text',
+    inputAttributes: {
+      placeholder: previous_name
     },
-    button: "編集"
-  }).then(function(value){
-    if(value==null||value==false||value===""){
+    confirmButtonText: '保存',
+  }).then(function(data){
+    if(data.dismiss!=null){
+      swal({
+        text: "キャンセルしました",
+        type: "warning",
+        showConfirmButton: false,
+        timer: 2500
+      });
     }else{
       $.ajax({
         url: '/editFriend',
@@ -98,15 +100,16 @@ function edit_friend(friend_id, previous_name){
         async: false,
         data: {
           frined_id: friend_id,
-          name: value,
+          name: data.value,
           user_id: 1
         }
-      }).done(function(data){
-        if(data!=null){
+      }).done(function(data2){
+        console.log(data2);
+        if(data2!=null){
           swal({
-            text: value+"に変更しました",
-            icon: "success",
-            buttons: false,
+            text: data.value+"に変更しました",
+            type: 'success',
+            showConfirmButton: false,
             timer: 2500
           }).then((value) => {
             location.reload();
@@ -116,8 +119,8 @@ function edit_friend(friend_id, previous_name){
       }).fail(function(data){
         swal({
           text: "失敗しました",
-          icon: "error",
-          buttons: false,
+          type: "error",
+          showConfirmButton: false,
           timer: 2500
         });
       });
@@ -132,7 +135,8 @@ function delete_contract(contract_id){
     text: "本当に削除しますか",
     content: "confirm",
     buttons: true,
-    dangerMode: true
+    dangerMode: true,
+    showCloseButton: true,
   }).then(function(value){
     if(value==true){
       $.ajax({
@@ -146,8 +150,8 @@ function delete_contract(contract_id){
       }).done(function(data){
         swal({
           text: "削除しました",
-          icon: "success",
-          buttons: false,
+          type: "success",
+          showConfirmButton: false,
           timer: 2500
         }).then((value) => {
           location.reload()
@@ -155,16 +159,16 @@ function delete_contract(contract_id){
       }).fail(function(data){
         swal({
           text: "失敗しました",
-          icon: "error",
-          buttons: false,
+          type: "error",
+          showConfirmButton: false,
           timer: 2500
         });
       });
     }else{
       swal({
         text: "キャンセルしました",
-        icon: "warning",
-        buttons: false,
+        type: "warning",
+        showConfirmButton: false,
         timer: 2500
       });
     }

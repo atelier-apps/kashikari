@@ -1,0 +1,9 @@
+<div>領収履歴</div>
+<div class="history-area">
+  <% @filtered_payments.each do |payment| %>
+    <div class="detail-line">
+      <div class="detail-label"><%=parse_date(payment.created_at) %></div>
+      <div class="detail-content"> <%=parse_amount(payment.amount) %></div>
+    </div>
+  <% end %>
+</div>
