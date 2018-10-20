@@ -68,25 +68,33 @@ input:not(.swal2-input),textarea,select{
 }
 
 // ボタン系統
-button:not(.swal2-styled),input[type="button"],input[type="submit"],div.button {
+button,input[type="button"],input[type="submit"],div.button {
   -webkit-appearance: none;
   background-color:$color-main;
   border: none;
   border-radius: $form-radius;
-  box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.1);
   box-sizing: border-box;
   color: #ffffff;
   font-size:$font-size;
-  height:$form-height;
-  -webkit-touch-callout:none;
-  user-select:none;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items:center;
-  &.sub{
-    background-color: $color-base-dark;
+
+  &.swal2-confirm{
+    background-color:$color-main !important;
   }
+  &.swal2-cancel,&.sub{
+    background-color:$color-base-dark !important;
+  }
+
+  &:not(.swal2-close):not(.swal2-confirm):not(.swal2-cancel){
+  height:$form-height;
+  -webkit-touch-callout:none;
+  user-select:none;
+  box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.1);
+  }
+
   &:disabled{
     background-color: $color-base-dark;
   }
@@ -192,10 +200,8 @@ div{
   }
   &.footer{
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
     width: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling:touch;
   }
   &.list{
     box-shadow: 0px 1px 1px 0 rgba(0,0,0,0.1);
