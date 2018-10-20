@@ -1,12 +1,10 @@
 <div class="header">
-<div class="filter-area">
-
-  <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-  <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-</div>
-<div>
-  未回収合計: <%=@sum %>
-</div>
+  <div class="title-of-total-amount">
+      合計金額
+  </div>
+  <div class="total-amount">
+    <%=@sum %>円
+  </div>
 </div>
 <div class="list-area">
   <% @contracts.each do |contract| %>
@@ -17,7 +15,7 @@
           <div class="main">
             <div class="main-content">
               <div><%=@friends.find(contract.friend_id).name%></div>
-              <div><%=contract.note %> <%=contract.deadline %></div>
+              <div> 〆<%=contract.deadline.to_s(:ymd) %></div>
             </div>
             <div class="amount">
               <%=parse_amount(contract.amount) %>
@@ -25,4 +23,12 @@
           </div>
         </div>
   <% end %>
+  <div class="dammy-list">
+  </div>
+</div>
+<div class="footer">
+<div class="filter-area">
+  <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+  <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+</div>
 </div>
