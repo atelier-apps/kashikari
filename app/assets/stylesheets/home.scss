@@ -8,10 +8,11 @@ $form-width: 50vw;
 $form-height: 15vw;
 $form-radius: 1.8vw;
 
-$header-height: 5em;
+$header-height: 3em;
 
 // 色彩
 $color-base: #fcfcfc;
+$color-base-buttons:#EFEFEF;
 $color-base-black: #555555;
 $color-base-dark: #b9b9b9;
 $color-base-label: #b9b9b9;
@@ -20,8 +21,7 @@ $color-font: #777777;
 $color-main: #00b900;
 $color-accent: #b90000;
 
-$color-other-header: #555555;
-
+$color-other-header: #666666;
 
 html{
   box-sizing: border-box;
@@ -62,7 +62,7 @@ input:not(.swal2-input),textarea,select{
   &.filter{
     width: 50vw;
     border-radius: 0;
-    background-color: $color-base;
+    background-color: $color-base-buttons;
     height: 2.5em;
   }
 }
@@ -119,8 +119,9 @@ div{
   }
 
   &.header{
+    display: flex;
     box-shadow: 0px 0px 0.5em 0 rgba(0,0,0,0.3);
-    text-align: center;
+    font-size: 1.2em;
     background-color: $color-other-header;
     color: $color-base;
     position: fixed;
@@ -130,8 +131,17 @@ div{
     height: $header-height;
     box-sizing: border-box;
     z-index: 100;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding-right:10%;
+    padding-left:10%;
+  }
+  &.title-Of-total-amount{
+    text-align: left;
+    float: left;
+  }
+  &.total-amount{
+    text-align: right;
   }
   &.content{
     padding: 0 10vw;
@@ -140,11 +150,14 @@ div{
     padding: 0.5em 0;
   }
   &.list-area{
-    height: 50vh;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
+    height:80vh;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    //overflow: scroll;
+    //-webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
-    padding: $header-height 0 50vh 0;
+    padding: $header-height 0;
   }
 
   &.history-area{
@@ -185,6 +198,11 @@ div{
   &.filter-area{
     display: flex;
   }
+  &.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
   &.list{
     box-shadow: 0px 1px 1px 0 rgba(0,0,0,0.1);
     justify-content: space-between;
@@ -194,7 +212,8 @@ div{
     display: flex;
     position: relative;
     box-sizing: border-box;
-
+    padding-right:10%;
+    padding-left:7%;
     height: 4em;
     width: 100%;
     .amount{
@@ -208,14 +227,13 @@ div{
       height: 100%;
       justify-content: space-between;
       align-items: center;
-      padding-right: 1.8em;
     }
     .main-content{
+      padding: 0 1em;
       flex: 1;
       font-size: 0.8em;
     }
     .checkbox{
-      padding: 0 1em;
       height: 100%;
       display: flex;
       align-items: center;
@@ -225,7 +243,6 @@ div{
         align-items: center;
         justify-content: center;
       }
-
       img{
         width: 2.4em;
         height: 2.4em;
@@ -239,9 +256,6 @@ div{
       color: $color-base-dark;
     }
   }
-
-
-
 
   &.contract-area{
     box-shadow:2px 2px 6px 2px rgba(0,0,0,0.2);
@@ -298,7 +312,13 @@ div{
     margin: 1em;
     padding: 0.8em 2.2em;
   }
+  .dammy-list{
+    height: 4em;
+    width: 100%;
+    background-color: white;
+  }
 }
+
 
 .animation-check{
   animation: show-status 0.5s;
