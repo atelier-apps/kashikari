@@ -26,9 +26,10 @@
   <div class="dammy-list">
   </div>
 </div>
+
 <div class="footer">
-<div class="filter-area">
-  <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-  <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-</div>
+  <div class="filter-area">
+    <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+    <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+  </div>
 </div>

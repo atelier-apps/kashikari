@@ -5,7 +5,6 @@
       <%= f.label :amount, "金額" %>
       <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>
     </div>
-    <%= flash[:amount_error] %>
     <%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
     <div class="form">
       <%= f.submit "領収する", id: "refundButton", data: { disable_with: '処理中' }  %>

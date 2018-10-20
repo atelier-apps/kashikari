@@ -8,3 +8,7 @@
 <div class="sub-area">
   <%= button_to "一覧に戻る", goBackList_path(contract_id: @contract.id, passcode: @contract.passcode), {:class=> "sub"} %>
 </div>
+<% message= flash[:contract_message] %>
+<% if !message.blank? then %>
+<%= message.html_safe %>
+<% end %>
