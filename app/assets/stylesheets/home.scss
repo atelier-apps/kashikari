@@ -15,7 +15,7 @@ $color-base: #fcfcfc;
 $color-base-black: #555555;
 $color-base-dark: #cccccc;
 $color-base-pale: #ffffff;
-$color-main: #51a1a2;
+$color-main: #00b900;
 $color-accent: #a25251;
 
 $color-other-header: #555555;
@@ -220,4 +220,8 @@ div{
     100% {
         transform: scale(1) rotateZ(0deg);
     }
+}
+//makingButton
+#makingButton{
+  margin-top: 5vw;
 }
