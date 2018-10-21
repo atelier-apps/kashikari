@@ -130,6 +130,14 @@ class HomeController < ApplicationController
     friend=Friend.find(record.friend_id)
     friend.contract_times+=1
     friend.save()
+    flash[:contract_message] = '<script>$(document).ready(function(){swal({
+      text: "作成しました",
+      type: "success",
+      showConfirmButton: false,
+      timer: 2500
+    }).then((data) => {
+      location.reload();
+    });});</script>';
     redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
   end
 
@@ -194,11 +202,35 @@ class HomeController < ApplicationController
     difference=checkDifference
 
     if difference<0 then
-      flash[:amount_error] = "返済金額を超過していたので、登録しませんでした"
+      flash[:payment_message] = '<script>$(document).ready(function(){swal({
+        text: "返済金額を超過していたので、登録しませんでした",
+        type: "error",
+        showConfirmButton: false,
+        timer: 2500
+      }).then((data) => {
+        location.reload();
+      });});</script>';
       return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
     elsif difference==0 then
       contract.status_id = view_context.get_status_id_by_key("PAID")
       contract.save()
+      flash[:payment_message] = '<script>$(document).ready(function(){swal({
+        text: "全額領収しました",
+        type: "success",
+        showConfirmButton: false,
+        timer: 2500
+      }).then((data) => {
+        location.reload();
+      });});</script>';
+    else
+      flash[:payment_message] = '<script>$(document).ready(function(){swal({
+        text: "部分領収しました",
+        type: "success",
+        showConfirmButton: false,
+        timer: 2500
+      }).then((data) => {
+        location.reload();
+      });});</script>';
     end
 
     record = Payment.new()
