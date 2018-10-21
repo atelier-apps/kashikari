@@ -3,7 +3,7 @@
       合計金額
   </div>
   <div class="total-amount">
-    <%=@sum %>円
+    <%=parse_amount(@sum )%>
   </div>
 </div>
 <div class="list-area">
@@ -15,7 +15,7 @@
           <div class="main">
             <div class="main-content">
               <div><%=@friends.find(contract.friend_id).name%></div>
-              <div> 〆<%=contract.deadline.to_s(:ymd) %></div>
+              <div> 〆<%=parse_date(contract.deadline) %></div>
             </div>
             <div class="amount">
               <%=parse_amount(contract.amount) %>
