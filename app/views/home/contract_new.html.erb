@@ -1,4 +1,6 @@
-<div class="title">契約書作成</div>
+<div class="scrollable">
+
+  <div class="title">契約書作成</div>
 <div class="content">
   <%= form_for Contract.new do |f| %>
   <div class="form">
@@ -23,4 +25,6 @@
     <%= f.submit "作成する", id: "makingButton", data: { disable_with: '処理中' } , :disabled => true %>
   </div>
   <% end %>
+</div>
+
 </div>

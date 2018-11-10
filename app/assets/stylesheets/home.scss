@@ -72,6 +72,8 @@ input:not(.swal2-input),textarea,select{
     width: 50vw;
     border-radius: 0;
     background-color: $color-base-buttons;
+    text-align: center;
+
   }
 }
 
@@ -109,6 +111,13 @@ button,input[type="button"],input[type="submit"],div.button {
 }
 
 div{
+
+  &.scrollable{
+    max-height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
 
   &.swal2-modal{
     width: 95%;
@@ -322,7 +331,7 @@ div{
     }
   }
   &.sub-area{
-    margin: 1em;
+    margin: 1em 1em 3em 1em;
     padding: 0.8em 2.2em;
   }
   .dammy-list{
