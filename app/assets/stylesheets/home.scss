@@ -291,7 +291,8 @@ div{
       font-size: 0.8em;
       color: $color-base-pale;
       background-color: $color-base-label;
-      padding: 0.2em 1em;
+      padding: 0.2em 1.2em;
+      
     }
     &.status-UNPAID::before{
       content: "未返済";

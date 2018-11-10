@@ -275,7 +275,7 @@ class HomeController < ApplicationController
   end
 
   def goBackList
-    return redirect_to(contract_list_path)
+    return redirect_to(contract_list_path(status_filter_selected: 1))
   end
 
 
