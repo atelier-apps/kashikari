@@ -42,7 +42,6 @@ function create_friend(select){
           user_id: 1
         }
       }).done(function(data2){
-        console.log(data2);
         if(data2!=null){
           swal({
             text: data.value+"を追加しました",
@@ -137,8 +136,10 @@ function delete_contract(contract_id){
     type: "question",
     showConfirmButton: true,
     showCancelButton: true,
+    focusConfirm: true,
+    focusCancel: true,
   }).then(function(data){
-    console.log(data);
+
     if(data.dismiss==null){
       $.ajax({
         url: '/deleteContract',
@@ -180,6 +181,7 @@ function option(contract_id){
   swal({
     showCloseButton: true,
     showConfirmButton: false,
+    focusClose: false,
     html: $("#option").get(0)
     });
 }

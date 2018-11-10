@@ -2,12 +2,9 @@ class HomeController < ApplicationController
   #認証
   before_action :authenticate_user!, :except=>[:top, :contract_agree]
 
-  # デバッグ用画面
+  # リダイレクト用画面
   def top
-    @payments=Payment.all
-    @contracts=Contract.all
-    @friends =Friend.all
-    @users =User.all
+    redirect_to user_line_omniauth_authorize_path
   end
 
   # 契約書関連
@@ -138,6 +135,7 @@ class HomeController < ApplicationController
     }).then((data) => {
       location.reload();
     });});</script>';
+
     redirect_to(contract_complete_path(contract_id: record.id, passcode: record.passcode))
   end
 
@@ -273,7 +271,7 @@ class HomeController < ApplicationController
   end
 
   def goBackList
-    return redirect_to(contract_list_path)
+    return redirect_to(contract_list_path(status_filter_selected: 1))
   end
 
 
