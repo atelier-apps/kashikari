@@ -1,4 +1,6 @@
-<div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
+<div class="scrollable">
+
+  <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
   <div class="title">契約書</div>
   <%= render partial: "detail" %>
   <div class="form">
@@ -12,3 +14,5 @@
 <% if !message.blank? then %>
 <%= message.html_safe %>
 <% end %>
+
+</div>
