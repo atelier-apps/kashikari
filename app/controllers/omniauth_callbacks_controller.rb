@@ -2,7 +2,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line; basic_action end
 
   private
-
  def basic_action
    @omniauth = request.env['omniauth.auth']
    puts @omniauth
@@ -28,8 +27,19 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
      end
    end
 
-   redirect_to root_path
+   redirect_to back_to || contract_list_path(status_filter_selected: 1)
  end
+
+ private
+  def back_to
+    if request.env['omniauth.origin'].presence && back_to = CGI.unescape(request.env['omniauth.origin'].to_s)
+      uri = URI.parse(back_to)
+      return back_to if uri.relative? || uri.host == request.host
+    end
+    nil
+  rescue
+    nil
+  end
 
 
  def fake_email(uid,provider)
