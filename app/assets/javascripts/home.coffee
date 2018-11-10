@@ -12,8 +12,6 @@ $ ->
     return
 
   $("#payment_amount").on 'input', ->
-    console.log($("#contractBalance").attr("data-balance") )
-    console.log($(this).val())
     balance = Number($("#contractBalance").attr("data-balance"))
     inputPrice = Number($(this).val())
     if balance == inputPrice
@@ -30,7 +28,6 @@ $ ->
       $("#refundButton").val("部分返済する")
 
   $("#loaning_price").on 'input', ->
-    console.log($(this).val())
     inputPrice = Number($(this).val())
     if inputPrice <= 0
       $("#makingButton").prop("disabled", true)

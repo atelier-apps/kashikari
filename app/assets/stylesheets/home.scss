@@ -8,9 +8,8 @@ $form-width: 50vw;
 $form-height: 15vw;
 $form-radius: 1.8vw;
 
-$header-height: 8vh;
+$header-height: 10vh;
 $list-area-height: 85vh;
-$footer-height: 10vh;
 
 // 色彩
 $color-base: #fcfcfc;
@@ -48,6 +47,10 @@ body{
 }
 
 //入力欄系統
+input.swal2-input{
+  margin-bottom: 0 !important;
+}
+
 input:not(.swal2-input),textarea,select{
   -webkit-appearance: none;
   background-color: $color-base-pale;
@@ -102,11 +105,13 @@ button,input[type="button"],input[type="submit"],div.button {
   height:$form-height;
   -webkit-touch-callout:none;
   user-select:none;
-  box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.1);
+  box-shadow: 4px 4px 8px 0px rgba(0,0,0,0.1);
   }
 
   &:disabled{
-    background-color: $color-base-dark;
+    color: #aaaaaa;
+    box-shadow:none;
+    background-color: #dddddd;
   }
 }
 
@@ -128,7 +133,7 @@ div{
     display: none;
   }
   &.alert-content{
-    padding: 1vw 3vw;
+    padding: 2vw 1em;
     button,input[type="button"],input[type="submit"],div.button {
       zoom:30%;
       margin: 3vw 0;
@@ -213,6 +218,7 @@ div{
     font-size: 1.5em;
     text-align: center;
   }
+
   &.filter-area{
     display: flex;
   }
@@ -222,7 +228,7 @@ div{
     left:0;
     width: 100vw;
     background-color: $color-other-header;
-    z-index: 1000;
+    z-index: 100;
   }
 
   &.list{
@@ -281,7 +287,9 @@ div{
     }
   }
 
-
+  &.contract-form-area{
+    margin-top: 2em;
+  }
 
   &.contract-area{
     box-shadow:2px 2px 6px 2px rgba(0,0,0,0.2);
@@ -297,7 +305,7 @@ div{
       color: $color-base-pale;
       background-color: $color-base-label;
       padding: 0.2em 1.2em;
-      
+
     }
     &.status-UNPAID::before{
       content: "未返済";
