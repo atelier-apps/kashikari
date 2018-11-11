@@ -9,9 +9,11 @@
         <%= render partial: "detail" %>
     </div>
   </div>
-  <div class="sub-area">
-    <%= render partial: "history" %>
-  </div>
+  <% if @filtered_payments.length>0 then %>
+    <div class="sub-area">
+      <%= render partial: "history" %>
+    </div>
+  <% end %>
 <% end %>
 
 </div>
