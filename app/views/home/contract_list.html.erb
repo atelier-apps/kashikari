@@ -8,7 +8,7 @@
 </div>
 <div class="list-area">
   <% @contracts.each do |contract| %>
-        <div class="list" onclick="window.location='contract?contract_id=<%=contract.id%>';">
+        <div class="list type-contract" onclick="window.location='contract?contract_id=<%=contract.id%>';">
           <div class="checkbox">
            <%=parse_status(contract.status_id) %>
           </div>
@@ -32,7 +32,7 @@
 
 <div class="footer">
   <div class="filter-area">
-    <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
-    <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべて"}, {class: "filter"} %>
+    <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべての友達"}, {class: "filter"} %>
+    <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべての状態"}, {class: "filter"} %>
   </div>
 </div>

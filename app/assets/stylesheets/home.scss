@@ -22,7 +22,7 @@ $color-font: #777777;
 $color-main: #00b900;
 $color-accent: #b90000;
 
-$color-other-header: #666666;
+$color-other-header: #5d6579;
 
 html{
   box-sizing: border-box;
@@ -68,7 +68,7 @@ input:not(.swal2-input),textarea,select{
   width: 100%;
   &:focus{
     border-color: $color-main;
-    box-shadow: 0px 0px 2px 0 $color-main;
+    box-shadow: 0px 0px 4px 0 $color-main;
   }
   &.filter{
     box-sizing: border-box;
@@ -115,6 +115,10 @@ button,input[type="button"],input[type="submit"],div.button {
   }
 }
 
+img{
+  width: 100%;
+}
+
 div{
 
   &.scrollable{
@@ -158,6 +162,10 @@ div{
     padding-right:10%;
     padding-left:10%;
 
+    .header-label{
+      width: 100%;
+      text-align: center;
+    }
   }
   &.title-Of-total-amount{
     text-align: left;
@@ -240,8 +248,6 @@ div{
     display: flex;
     position: relative;
     box-sizing: border-box;
-    padding-right:10%;
-    padding-left:7%;
     height: 4em;
     width: 100%;
     .amount{
@@ -257,7 +263,7 @@ div{
       align-items: center;
     }
     .main-content{
-      padding: 0 1em;
+      padding: 0 0.8em;
       flex: 1;
       font-size: 0.8em;
     }
@@ -276,20 +282,31 @@ div{
         height: 2.4em;
       }
     }
+    &.type-contract{
+      padding:0 10% 0 7%;
+    }
+    &.type-friend{
+      padding:0 10%;
+    }
     .after{
           position: absolute;
-          right: 0.5em;
-          font-size: 0.8em;
+          right: 0.4em;
+          font-size: 1em;
           color: $color-base-dark;
     }
     .image-pen{
-      text-align:center
+      width: 1.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   &.contract-form-area{
     margin-top: 2em;
   }
+
+
 
   &.contract-area{
     box-shadow:2px 2px 6px 2px rgba(0,0,0,0.2);
@@ -315,7 +332,7 @@ div{
     &.status-PAID::before{
       content: "完済";
       color: $color-base-pale;
-      background-color: $color-accent;
+      background-color: $color-main;
     }
     .option{
       display: flex;
@@ -372,8 +389,4 @@ div{
 //makingButton
 #makingButton{
   margin-top: 5vw;
-}
-
-#friendlist-header{
-  margin: 10px auto;
 }

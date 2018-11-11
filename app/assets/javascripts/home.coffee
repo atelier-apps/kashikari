@@ -16,16 +16,16 @@ $ ->
     inputPrice = Number($(this).val())
     if balance == inputPrice
       $("#refundButton").prop("disabled", false)
-      $("#refundButton").val("返済する")
+      $("#refundButton").val("領収する")
     else if inputPrice <= 0
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("返済する")
+      $("#refundButton").val("領収する")
     else if balance < inputPrice
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("返済する")
+      $("#refundButton").val("領収する")
     else
       $("#refundButton").prop("disabled", false)
-      $("#refundButton").val("部分返済する")
+      $("#refundButton").val("部分領収する")
 
   $("#loaning_price").on 'input', ->
     inputPrice = Number($(this).val())

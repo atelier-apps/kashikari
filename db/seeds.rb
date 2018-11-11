@@ -8,5 +8,5 @@
 
 # coding: utf-8
 Status.create(:key => 'UNPAID', :japanese => '未返済', :english => 'Unpiad')
-Status.create(:key => 'PAID', :japanese => '返済済', :english => 'Paid')
+Status.create(:key => 'PAID', :japanese => '完済', :english => 'Paid')
 Status.create(:key => 'DELETED', :japanese => '削除済', :english => 'Deleted')

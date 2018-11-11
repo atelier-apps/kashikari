@@ -1,16 +1,16 @@
 <div class="header">
-  <div id = "friendlist-header">
+  <div class="header-label">
     友達一覧
   </div>
 </div>
 <div class="list-area">
   <% @friends.each do |friend| %>
-  <div class="list" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
+  <div class="list type-friend" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
     <div class="main">
       <%=friend.name %>
     </div>
     <div class="image-pen">
-      <%= image_tag 'icon_pen.png', :alt => 'ペンの画像' %>
+      <%= image_tag 'icon_pen.png', :alt => '編集' %>
     </div>
   </div>
   <% end %>

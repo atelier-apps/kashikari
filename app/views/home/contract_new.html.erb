@@ -1,6 +1,6 @@
 <div class="scrollable">
   <div class="contract-form-area">
-    <div class="title">契約書作成</div>
+    <div class="title">てがた作成</div>
     <div class="content">
       <%= form_for Contract.new do |f| %>
       <div class="form">
@@ -8,7 +8,7 @@
         <%= f.number_field :amount, id: "loaning_price", :required => true, value: @amount %>
       </div>
       <div class="form">
-        <%= f.label :friend_id, "相手" %>
+        <%= f.label :friend_id, "貸す相手" %>
         <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達を追加＞" %>
       </div>
       <div class="form">
