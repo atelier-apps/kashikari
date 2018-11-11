@@ -1,16 +1,17 @@
 <div class="scrollable">
-
-<% if @contract.status_id==get_status_id_by_key("DELETED") then %>
-  <div class="contract-area">この契約書は貸方により削除されました</div>
+<% if @mode=="NOT_FOUND" then %>
+  <div class="contract-area">このてがたは存在しません</div>
+<% elsif @mode=="DELETED"%>
+  <div class="contract-area">このてがたは貸方により削除されました</div>
 <% else %>
-<div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
-  <div class="title">契約書</div>
-      <%= render partial: "detail" %>
+  <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
+    <div class="title">てがた控え</div>
+        <%= render partial: "detail" %>
+    </div>
   </div>
-</div>
-<div class="sub-area">
-  <%= render partial: "history" %>
-</div>
+  <div class="sub-area">
+    <%= render partial: "history" %>
+  </div>
 <% end %>
 
 </div>

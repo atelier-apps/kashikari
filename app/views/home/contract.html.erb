@@ -1,7 +1,7 @@
 <div class="scrollable">
 
   <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
-  <div class="title">契約書</div>
+  <div class="title">てがた</div>
   <div class="option">
     <div onclick="option(<%=@contract_id %>);"><%=image_tag('icon_option.png', { :border => '0', :alt => 'オプション'}) %></div>
 
@@ -19,8 +19,8 @@
 </div>
 <div class="hidden">
   <div id="option" class="alert-content">
-    <%= button_to "友人に共有する", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
-    <div onclick="delete_contract(<%=@contract_id %>);" class="button sub">この契約書を削除</div>
+    <%= button_to "友達に控えを送る", sendAgreement_path(contract_id: @contract.id, passcode: @contract.passcode) %>
+    <div onclick="delete_contract(<%=@contract_id %>);" class="button sub">このてがたを削除</div>
   </div>
 </div>
 <% message= flash[:payment_message] %>

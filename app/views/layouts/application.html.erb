@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>貸し借り</title>
+    <title>てがた帳</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <!--- LINEのアイコン--->
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:site_name" content="手形">
-    <meta property="og:title" content="手形">
-    <meta property="og:description" content="手形です!!ご確認よろしくお願いします。">
+    <meta property="og:site_name" content="てがた帳">
+    <meta property="og:title" content="てがた帳">
+    <meta property="og:description" content="てがたの控えを送ります。ご確認よろしくお願いします。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://app-kashikari-develop.herokuapp.com/contract_agree">
     <meta property="og:image" content="https://app-kashikari-develop.herokuapp.com/assets/icon_unpaid-874e8727b097ab60ac02a9fa0693d0232fcf8259323968bbc286088efd739bae.png">
@@ -19,7 +19,9 @@
     <%= yield %>
   </body>
   <div class = "restrict-reverse">
-    <%=image_tag 'icon_rotation.png', :alt => '縦向きにしてください' %>
+    <div class = "restrict-reverse-image">
+      <%=image_tag 'icon_rotation.png', :alt => '縦向きにしてください' %>
+    </div>
   </div>
 
 </html>

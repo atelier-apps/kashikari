@@ -26,3 +26,7 @@
   width:100vw;
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+.restrict-reverse-image{
+  width: 80vh;
+}
