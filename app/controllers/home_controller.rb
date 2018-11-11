@@ -208,7 +208,7 @@ class HomeController < ApplicationController
 
       if difference<0 then
         flash[:payment_message] = '<script>$(document).ready(function(){swal({
-        text: "返済金額を超過していたので、登録しませんでした",
+        text: "領収可能額を超過しています",
         type: "error",
         showConfirmButton: false,
         timer: 2500
