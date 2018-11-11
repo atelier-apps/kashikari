@@ -194,6 +194,8 @@ div{
   &.history-area{
     .detail-line{
       display: flex;
+      align-items: center;
+      justify-content: center;
       border-top : solid 1px $color-base-dark;
       padding: 3vw 0;
       &:last-child{
