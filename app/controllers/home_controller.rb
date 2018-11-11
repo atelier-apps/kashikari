@@ -172,7 +172,7 @@ class HomeController < ApplicationController
           else
             @repaymentSum=@filtered_payments.sum(:amount)
           end
-          if @contract.status_id==get_status_id_by_key("DELETED") then
+          if @contract.status_id==view_context.get_status_id_by_key("DELETED") then
             @mode="DELETED"
           end
         else
