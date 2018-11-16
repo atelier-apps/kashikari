@@ -8,10 +8,8 @@ module ApplicationHelper
   def parse_amount(amount)
     return amount.to_s(:delimited)+"円"
   end
-  def parse_status(status)
-    if status==get_status_id_by_key("PAID") then
-      return image_tag("icon_paid.png", name: status)
-    end
-      return image_tag("icon_unpaid.png", name: status)
+  def parse_status(status_id)
+    status=Status.find(status_id)
+    return content_tag("div",status.icon_japanese,class: ["status-icon", "status-"+status.key])
   end
 end

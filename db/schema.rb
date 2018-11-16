@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2018_10_13_070136) do
     t.string "key"
     t.string "japanese"
     t.string "english"
+    t.string "icon_japanese"
+    t.string "icon_english"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

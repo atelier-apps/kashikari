@@ -1,8 +1,1 @@
-<div class="scrollable">
-<% if user_signed_in? %>
-    <div><%=current_user.name %> としてログイン中</div>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-<% else %>
-    <%= link_to "LINEでログイン", user_line_omniauth_authorize_path %>
-<% end %>
-</div>
+

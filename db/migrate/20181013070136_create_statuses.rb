@@ -4,7 +4,8 @@ class CreateStatuses < ActiveRecord::Migration[5.2]
       t.string :key
       t.string :japanese
       t.string :english
-
+      t.string :icon_japanese
+      t.string :icon_english
       t.timestamps
     end
   end

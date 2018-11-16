@@ -10,7 +10,9 @@
   <% @contracts.each do |contract| %>
         <div class="list type-contract" onclick="window.location='contract?contract_id=<%=contract.id%>';">
           <div class="checkbox">
-           <%=parse_status(contract.status_id) %>
+            <div class="status-icon">
+              <%=parse_status(contract.status_id) %>
+            </div>
           </div>
           <div class="main">
             <div class="main-content">

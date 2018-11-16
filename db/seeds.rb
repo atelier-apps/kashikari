@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # coding: utf-8
-Status.create(:key => 'UNPAID', :japanese => '未返済', :english => 'Unpiad')
-Status.create(:key => 'PAID', :japanese => '完済', :english => 'Paid')
-Status.create(:key => 'DELETED', :japanese => '削除済', :english => 'Deleted')
+Status.create(:key => 'UNPAID', :japanese => '未返済', :english => 'Unpiad', :icon_japanese => '未')
+Status.create(:key => 'PAID', :japanese => '完済', :english => 'Paid', :icon_japanese => '済')
+Status.create(:key => 'DELETED', :japanese => '削除済', :english => 'Deleted', :icon_japanese => '廃')
