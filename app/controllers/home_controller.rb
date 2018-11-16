@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   #認証
-  before_action :authenticate_user!, :except=>[:top, :c]
+  before_action :authenticate_user!, :except=>[:top, :contract_agree, :maintenance]
 
   # リダイレクト用画面
   def top
@@ -71,7 +71,6 @@ class HomeController < ApplicationController
 
 
   def contract_list
-
     my_contracts=Contract.where(user_id: current_user.id)
     my_contracts =my_contracts.where.not(status_id: view_context.get_status_id_by_key("DELETED"))
     @contracts =my_contracts.order(deadline: :asc)
@@ -152,7 +151,7 @@ class HomeController < ApplicationController
       contract_id = params[:contract_id]
       passcode = params[:passcode]
       lineSend="https://social-plugins.line.me/lineit/share?url="
-      agreementPage="https://app-kashikari-develop.herokuapp.com/c?cp=" + contract_id.to_s + "-" + passcode.to_s#passを本番環境ように切りかえる必要アリ
+      agreementPage=root_url(only_path: false)+"c?cp=" + contract_id.to_s + "-" + passcode.to_s#passを本番環境ように切りかえる必要アリ
       redirect_to lineSend + agreementPage
     end
 
@@ -204,85 +203,60 @@ class HomeController < ApplicationController
         return redirect_to(contract_list_path)
       end
 
-      difference=checkDifference
-
-      if difference<0 then
-        flash[:payment_message] = '<script>$(document).ready(function(){swal({
-        text: "領収可能額を超過しています",
-        type: "error",
-        showConfirmButton: false,
-        timer: 2500
-        }).then((data) => {
-          location.reload();
-          });});</script>';
-          return redirect_to (contract_path(contract_id: params[:payment][:contract_id]))
-        elsif difference==0 then
+      @post_balance=checkDifference
+      if @post_balance>=0 then
+        record = Payment.new()
+        record.amount =params[:payment][:amount]
+        record.contract_id = params[:payment][:contract_id]
+        record.save()
+        if @post_balance==0 then
           contract.status_id = view_context.get_status_id_by_key("PAID")
           contract.save()
-          flash[:payment_message] = '<script>$(document).ready(function(){swal({
-          text: "全額領収しました",
-          type: "success",
-          showConfirmButton: false,
-          timer: 2500
-          }).then((data) => {
-            location.reload();
-            });});</script>';
-          else
-            flash[:payment_message] = '<script>$(document).ready(function(){swal({
-            text: "部分領収しました",
-            type: "success",
-            showConfirmButton: false,
-            timer: 2500
-            }).then((data) => {
-              location.reload();
-              });});</script>';
-            end
-
-            record = Payment.new()
-            record.amount =params[:payment][:amount]
-            record.contract_id = params[:payment][:contract_id]
-            record.save()
-
-            return redirect_back(fallback_location: contract_list_path)
-          end
-
-          # 友達関連
-          def createFriend
-
-            same_friends=Friend.where(name: params[:name])
-            if same_friends.length>0 then
-              return false
-            end
-
-            record = Friend.new()
-            record.name= params[:name]
-            record.created_by=current_user.id
-            record.contract_times=0
-            record.save()
-            friends=Friend.where(created_by: record.created_by)
-            html=""
-            friends.each do |friend|
-              html+="<option value='"+friend.id.to_s+"'>"+friend.name+"</option>"
-            end
-            render json: { friend_id: record.id, friends: friends, html: html}
-          end
-
-          def editFriend
-            record = Friend.find(params[:frined_id])
-            record.name= params[:name]
-            record.save()
-            render json: { friend_id: record.id}
-          end
-
-          def friend_list
-            my_friends =Friend.where(created_by: current_user.id)
-            @friends =my_friends.order(updated_at: :desc)
-          end
-
-          def goBackList
-            return redirect_to(contract_list_path(status_filter_selected: 1))
-          end
-
-
-
         end
+      end
+    end
+
+    # 友達関連
+    def createFriend
+
+      same_friends=Friend.where(name: params[:name])
+      if same_friends.length>0 then
+        return false
+      end
+
+      record = Friend.new()
+      record.name= params[:name]
+      record.created_by=current_user.id
+      record.contract_times=0
+      record.save()
+      friends=Friend.where(created_by: record.created_by)
+      html=""
+      friends.each do |friend|
+        html+="<option value='"+friend.id.to_s+"'>"+friend.name+"</option>"
+      end
+      render json: { friend_id: record.id, friends: friends, html: html}
+    end
+
+    def editFriend
+      same_friends=Friend.where(name: params[:name])
+      if same_friends.length>0 then
+        return false
+      end
+      record = Friend.find(params[:frined_id])
+      record.name= params[:name]
+      record.save()
+      render json: { friend_id: record.id}
+    end
+
+    def friend_list
+      my_friends =Friend.where(created_by: current_user.id)
+      @friends =my_friends.order(updated_at: :desc)
+    end
+
+    def goBackList
+      return redirect_to(contract_list_path(status_filter_selected: 1))
+    end
+
+
+
+  end

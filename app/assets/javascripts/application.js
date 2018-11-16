@@ -15,6 +15,23 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+window.onbeforeunload = function() {
+    // IE用。ここは空でOKです
+};
+window.onunload = function() {
+    // IE以外用。ここは空でOKです
+};
+window.addEventListener("pageshow", function(event){
+  if (event.persisted) {
+    // ここにキャッシュ有効時の処理を書く
+    $("#loading_spenner").css('visibility','visible');
+    window.location.reload();
+  }
+});
+
+function parse_amount(amount){
+  return String(amount).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')+"円";
+}
 
 function create_friend(select){
   swal({
@@ -84,7 +101,7 @@ function edit_friend(friend_id, previous_name){
     },
     confirmButtonText: '保存',
   }).then(function(data){
-    if(data.dismiss!=null){
+    if(data.dismiss!=null||data.value==""||data.value==null){
       swal({
         text: "キャンセルしました",
         type: "warning",
@@ -103,7 +120,6 @@ function edit_friend(friend_id, previous_name){
           user_id: 1
         }
       }).done(function(data2){
-        console.log(data2);
         if(data2!=null){
           swal({
             text: data.value+"に変更しました",
@@ -114,6 +130,12 @@ function edit_friend(friend_id, previous_name){
             location.reload();
           });
 
+        }else{
+          swal({
+            text: "すでに存在する名前です",
+            type: "error",
+            timer: 2500
+          });
         }
       }).fail(function(data){
         swal({
@@ -190,10 +212,10 @@ function option(contract_id){
 $(window).on('load orientationchange resize', function(){
     if (Math.abs(window.orientation) === 90) {
         // 横向きになったときの処理
-        $(".restrict-reverse").css('visibility','visible');
+        $("#restrict_reverse").css('visibility','visible');
 
     } else {
         // 縦向きになったときの処理
-        $(".restrict-reverse").css('visibility','hidden');
+        $("#restrict_reverse").css('visibility','hidden');
     }
 });

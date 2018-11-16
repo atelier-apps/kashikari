@@ -23,7 +23,3 @@
     <div onclick="delete_contract(<%=@contract_id %>);" class="button sub">このてがたを削除</div>
   </div>
 </div>
-<% message= flash[:payment_message] %>
-<% if !message.blank? then %>
-<%= message.html_safe %>
-<% end %>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'pages/index'
   get 'pages/show'
   get 'top' => 'home#top'
+  get 'maintenance' => 'home#maintenance'
   get 'contract' => "home#contract"
   get 'contract_new' => "home#contract_new"
   get 'c' => "home#contract_agree"

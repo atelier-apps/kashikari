@@ -1,7 +1,7 @@
 <% balance=@contract.amount - @repaymentSum%>
 <div class="detail-main">
   <div id = "contractBalance" data-balance = "<%=balance%>" class="detail-line">
-    <div class="detail-label">残高</div><div class="detail-content"><%=parse_amount(balance)%></div>
+    <div class="detail-label">残高</div><div name="balance" class="detail-content"><%=parse_amount(balance)%></div>
   </div>
   <div class="detail-line">
     <div class="detail-label">期限</div><div class="detail-content"><%=parse_date(@contract.deadline) %></div>

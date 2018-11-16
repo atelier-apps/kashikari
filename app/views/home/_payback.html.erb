@@ -1,6 +1,6 @@
 
 <% if @contract.status_id != get_status_id_by_key("PAID") %>
-  <%= form_for Payment.new do |f| %>
+  <%= form_for Payment.new, remote: true do |f| %>
     <div class="form">
       <%= f.label :amount, "領収額" %>
       <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>

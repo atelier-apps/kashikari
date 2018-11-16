@@ -1,0 +1,46 @@
+var pre_balance=$("#contractBalance").attr("data-balance");
+var current_balance=pre_balance;
+var post_balance=<%=@post_balance %>;
+var count=Math.floor((pre_balance-post_balance)/10);
+
+var increase=setInterval(function(){
+  current_balance-=count;
+  if(current_balance<=post_balance){
+    clearInterval(increase);
+    current_balance=post_balance;
+  }
+  $("div[name='balance']").text(parse_amount(current_balance));
+},50);
+
+
+if(post_balance<0){
+  swal({
+    text: "領収可能額を超過しています",
+    type: "error",
+    showConfirmButton: false,
+    timer: 2500
+  }).then((data) => {
+    location.reload();
+  });
+}else if(post_balance>0){
+  swal({
+    text: "部分領収しました",
+    type: "success",
+    showConfirmButton: false,
+    timer: 2500
+  }).then((data) => {
+    location.reload();
+  });
+}else if(post_balance==0){
+  swal({
+  text: "全額領収しました",
+  type: "success",
+  showConfirmButton: false,
+  timer: 2500
+  }).then((data) => {
+    location.reload();
+  });
+}else{
+  alert("失敗しました。");
+  location.reload();
+}
