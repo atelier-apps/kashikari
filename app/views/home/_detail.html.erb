@@ -7,10 +7,10 @@
     <div class="detail-label">期限</div><div class="detail-content"><%=parse_date(@contract.deadline) %></div>
   </div>
   <div class="detail-line">
-    <div class="detail-label">借方</div><div class="detail-content"><%=getFriendName(@contract.friend_id) %></div>
+    <div class="detail-label">借り手</div><div class="detail-content"><%=getFriendName(@contract.friend_id) %></div>
   </div>
   <div class="detail-line">
-    <div class="detail-label">貸方</div><div class="detail-content"><%=getUserName(@contract.user_id) %></div>
+    <div class="detail-label">貸し手</div><div class="detail-content"><%=getUserName(@contract.user_id) %></div>
   </div>
   <div class="detail-line">
     <div class="detail-label">貸付額</div><div class="detail-content"><%=parse_amount(@contract.amount) %></div>

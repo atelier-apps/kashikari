@@ -35,7 +35,7 @@ function parse_amount(amount){
 
 function create_friend(select){
   swal({
-    text: "新しい友達の名前",
+    text: "新しい取引メイトの名前",
     showCloseButton: true,
     input: 'text',
     confirmButtonText: '保存',
@@ -93,7 +93,7 @@ function create_friend(select){
 
 function edit_friend(friend_id, previous_name){
   swal({
-    text: "友達の名前を変更",
+    text: "取引メイトの名前を変更",
     showCloseButton: true,
     input: 'text',
     inputAttributes: {

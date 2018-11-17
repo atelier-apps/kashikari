@@ -1,11 +1,11 @@
 <div class="scrollable">
 <% if @mode=="NOT_FOUND" then %>
-  <div class="contract-area">このてがたは存在しません</div>
+  <div class="contract-area">この請求ノートは存在しません</div>
 <% elsif @mode=="DELETED"%>
-  <div class="contract-area">このてがたは貸方により削除されました</div>
+  <div class="contract-area">この請求ノートは貸方により削除されました</div>
 <% else %>
   <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
-    <div class="title">てがた控え</div>
+    <div class="title">請求ノート</div>
         <%= render partial: "detail" %>
     </div>
   </div>
