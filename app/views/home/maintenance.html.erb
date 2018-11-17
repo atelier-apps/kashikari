@@ -1,9 +1,10 @@
 <div class="scrollable">
+<h2>メンテナンス画面</h2>
 <% if user_signed_in? %>
     <div><%=current_user.name %> としてログイン中</div>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    <%= link_to 'ログアウトする', destroy_user_session_path, method: :delete %>
 <% else %>
     <div>ログインしていません。</div>
-    <%= link_to "LINEでログイン", user_line_omniauth_authorize_path %>
+    <%= link_to "ログインする", user_line_omniauth_authorize_path %>
 <% end %>
 </div>
