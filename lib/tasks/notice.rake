@@ -48,7 +48,7 @@ task :notice_task => :environment do
 
       message = {
         "type": "flex",
-        "altText": "未回収のてがたがあります。",
+        "altText": "未回収の請求があります。",
         "contents": {
           "type": "bubble",
           "styles": {
@@ -74,7 +74,7 @@ task :notice_task => :environment do
                   },
                   {
                     "type": "text",
-                    "text": "回収期限の過ぎているてがたが"+contracts.length.to_s+"件あります",
+                    "text": "回収期限の過ぎている請求ノートが"+contracts.length.to_s+"件あります",
                     "size": "sm"
                   }
                 ]

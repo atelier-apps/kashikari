@@ -34,7 +34,7 @@
 
 <div class="footer">
   <div class="filter-area">
-    <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべての取引メイト"}, {class: "filter"} %>
+    <%= select :filter, :friend, options_for_select(@friend_filter ,:selected => @friend_filter_selected),{include_blank: "すべての借り手"}, {class: "filter"} %>
     <%= select :filter, :status, options_for_select(@status_filter, :selected => @status_filter_selected),{include_blank: "すべての状態"}, {class: "filter"} %>
   </div>
 </div>
