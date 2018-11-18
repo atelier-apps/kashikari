@@ -1,17 +1,30 @@
 <% balance=@contract.amount - @repaymentSum%>
-
-<div id = "contractBalance" data-balance = "<%=balance%>">
-  <%=parse_amount(balance)%>
-</div>
-<div>
-  相手: <%=getFriendName %>
-</div>
-<div>
-  貸方: <%=getContractName %>
-</div>
-<div>
-  メモ: <%=@contract.note %>
-</div>
-<div>
-  状態: <%=getContractStatus %> （<%=@repaymentSum%> ）
+<div class="detail-main">
+  <div id = "contractBalance" data-balance = "<%=balance%>" class="detail-line">
+    <div class="detail-label">残高</div><div name="balance" class="detail-content"><%=parse_amount(balance)%></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">期限</div><div class="detail-content"><%=parse_date(@contract.deadline) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">借り手</div><div class="detail-content"><%=getFriendName(@contract.friend_id) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">貸し手</div><div class="detail-content"><%=getUserName(@contract.user_id) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">貸付額</div><div class="detail-content"><%=parse_amount(@contract.amount) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">貸付日</div><div class="detail-content"><%=parse_date(@contract.created_at) %></div>
+  </div>
+  <div class="detail-line">
+    <div class="detail-label">メモ</div><div class="detail-content">
+      <% if !(@contract.note).blank? then %>
+        <%=@contract.note %>
+      <% else %>
+        <span>なし</span>
+      <% end %>
+    </div>
+  </div>
 </div>

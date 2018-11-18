@@ -1,4 +1,19 @@
-<div class="title">契約控え</div>
-<div class="content">
-  <%= render partial: "detail" %>
+<div class="scrollable">
+<% if @mode=="NOT_FOUND" then %>
+  <div class="contract-area">この請求ノートは存在しません</div>
+<% elsif @mode=="DELETED"%>
+  <div class="contract-area">この請求ノートは貸方により削除されました</div>
+<% else %>
+  <div class="contract-area status-<%=Status.find(@contract.status_id).key %>">
+    <div class="title">請求ノート</div>
+        <%= render partial: "detail" %>
+    </div>
+  </div>
+  <% if @filtered_payments.length>0 then %>
+    <div class="sub-area">
+      <%= render partial: "history" %>
+    </div>
+  <% end %>
+<% end %>
+
 </div>

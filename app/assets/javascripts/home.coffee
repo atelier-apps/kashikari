@@ -12,29 +12,29 @@ $ ->
     return
 
   $("#payment_amount").on 'input', ->
-    console.log($("#contractBalance").attr("data-balance") )
-    console.log($(this).val())
     balance = Number($("#contractBalance").attr("data-balance"))
     inputPrice = Number($(this).val())
     if balance == inputPrice
       $("#refundButton").prop("disabled", false)
-      $("#refundButton").val("返済する")
+      $("#refundButton").val("領収する")
     else if inputPrice <= 0
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("1円以上を入力してください")
+      $("#refundButton").val("領収する")
     else if balance < inputPrice
       $("#refundButton").prop("disabled", true)
-      $("#refundButton").val("返済金額を超えています")
+      $("#refundButton").val("領収する")
     else
       $("#refundButton").prop("disabled", false)
-      $("#refundButton").val("部分返済する")
+      $("#refundButton").val("部分領収する")
+
+  $("#loaning_price").on 'input', ->
+    inputPrice = Number($(this).val())
+    if inputPrice <= 0
+      $("#makingButton").prop("disabled", true)
+    else
+      $("#makingButton").prop("disabled", false)
 
   $("#contract_friend_id").change ->
-      friend_id=$(this).val()
-      if friend_id is ""
-        create_friend($(this))
-
-  $("img").click ->
-    if $(this).attr("name") isnt "PAID"
-      $(this).attr('src','/assets/icon_paid-3ac411dfa518fce3e303a57d905e7bdaf9a334bb3cea9d6551a27e433bb48707.png');
-      $(this).addClass('animation-check');
+    friend_id=$(this).val()
+    if friend_id is ""
+      create_friend($(this))

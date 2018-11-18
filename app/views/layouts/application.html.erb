@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>貸し借り</title>
+    <title>請求ノート</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag('icon_app.png') %>
     <!--- LINEのアイコン--->
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:site_name" content="契約書控え">
-    <meta property="og:title" content="契約書控え">
-    <meta property="og:description" content="契約書控えです。">
+    <meta property="og:site_name" content="請求ノート">
+    <meta property="og:title" content="請求ノート">
+    <meta property="og:description" content="請求ノートを送ります。ご確認をお願いします。">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://app-kashikari-develop.herokuapp.com/contract_agree">
-    <meta property="og:image" content="https://app-kashikari-develop.herokuapp.com/assets/icon_unpaid-874e8727b097ab60ac02a9fa0693d0232fcf8259323968bbc286088efd739bae.png">
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <meta property="og:url" content="<%=root_url(only_path: false) %>c">
+    <meta property="og:image" content="<%=image_url('icon_app.png')%>">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
   <body>
     <%= yield %>
   </body>
+
+  <div id="restrict_reverse" class = "cover restrict-reverse">
+    <div class = "restrict-reverse-image">
+      <%=image_tag 'icon_rotation.png', :alt => '縦向きにしてください' %>
+    </div>
+  </div>
+
+  <div id="loading_spenner" class="cover loading-spenner">
+    <div class="sk-circle">
+      <div class="sk-circle1 sk-child"></div>
+      <div class="sk-circle2 sk-child"></div>
+      <div class="sk-circle3 sk-child"></div>
+      <div class="sk-circle4 sk-child"></div>
+      <div class="sk-circle5 sk-child"></div>
+      <div class="sk-circle6 sk-child"></div>
+      <div class="sk-circle7 sk-child"></div>
+      <div class="sk-circle8 sk-child"></div>
+      <div class="sk-circle9 sk-child"></div>
+      <div class="sk-circle10 sk-child"></div>
+      <div class="sk-circle11 sk-child"></div>
+      <div class="sk-circle12 sk-child"></div>
+    </div>
+  </div>
+
 </html>

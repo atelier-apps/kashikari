@@ -1,26 +1,31 @@
-<div class="title">契約書作成</div>
-<div class="content">
-  <%= form_for Contract.new do |f| %>
-  <div class="form">
-    <%= f.label :note, "イベント" %>
-    <%= f.select :note, getEventType, :selected => @note, :required => true %>
+<div class="scrollable">
+  <div class="contract-form-area">
+    <div class="title">請求ノート作成</div>
+    <div class="content">
+      <%= form_for Contract.new do |f| %>
+      <div class="form">
+        <%= f.label :amount, "貸付額" %>
+        <%= f.number_field :amount, id: "loaning_price", :required => true, value: @amount %>
+      </div>
+      <div class="form">
+        <%= f.label :friend_id, "借り手" %>
+        <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい借り手を追加＞" %>
+      </div>
+      <div class="form">
+        <%= f.label :deadline, "期限" %>
+        <%= f.date_field :deadline, value: @deadline, :required => true %>
+      </div>
+      <div class="form">
+        <%= f.label :note, "メモ" %>
+        <%= f.text_field :note %>
+      </div>
+      <div class="form">
+        <%= f.hidden_field :user_id, :required => true, value: @user_id %>
+        <%= f.hidden_field :id, value: @contract_id %>
+        <%= f.submit "作成する", id: "makingButton", data: { disable_with: '処理中' } , :disabled => true %>
+      </div>
+      <% end %>
+    </div>
+
   </div>
-  <div class="form">
-    <%= f.label :amount, "金額" %>
-    <%= f.number_field :amount, :required => true, value: @amount %>
-  </div>
-  <div class="form">
-    <%= f.label :deadline, "期限" %>
-    <%= f.date_field :deadline, value: @deadline %>
-  </div>
-  <div class="form">
-    <%= f.label :friend_id, "相手" %>
-    <%= f.select :friend_id, options_for_select(@friend_options, :selected => @friend_id), include_blank: "＜新しい友達＞" %>
-  </div>
-  <div class="form">
-    <%= f.hidden_field :user_id, :required => true, value: @user_id %>
-    <%= f.hidden_field :id, value: @contract_id %>
-    <%= f.submit "作成する", data: { disable_with: '作成中' }  %>
-  </div>
-  <% end %>
 </div>

@@ -1,12 +1,16 @@
 <div class="header">
-<div class="filter-area">
-</div>
+  <div class="header-label">
+    借り手一覧
+  </div>
 </div>
 <div class="list-area">
   <% @friends.each do |friend| %>
-  <div class="list" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
+  <div class="list type-friend" onclick="edit_friend(<%=friend.id %>,`<%=friend.name %>`);">
     <div class="main">
-      [<%=friend.id %>] <%=friend.name %> | 最終更新 <%=parse_time(friend.updated_at) %>
+      <%=friend.name %>
+    </div>
+    <div class="image-pen">
+      <%= image_tag 'icon_pen.png', :alt => '編集' %>
     </div>
   </div>
   <% end %>

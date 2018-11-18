@@ -1,27 +1,13 @@
-<%= form_for Payment.new do |f| %>
-<div class="form">
-  <%= f.label :amount, "金額" %>
-  <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>
-</div>
-<%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
 
-<% if @contract.status != "PAID"%>  
-<div class="form">
-  <%= f.submit "返済する", id: "refundButton", data: { disable_with: '処理中' }  %>
-</div>
+<% if @contract.status_id != get_status_id_by_key("PAID") %>
+  <%= form_for Payment.new, remote: true do |f| %>
+    <div class="form">
+      <%= f.label :amount, "領収額" %>
+      <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>
+    </div>
+    <%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
+    <div class="form">
+      <%= f.submit "領収する", id: "refundButton", data: { disable_with: '処理中' }  %>
+    </div>
+  <% end %>
 <% end %>
-
-<% end %>
-
-<div>
-<div>返済歴</div>
-<div class="paybeck-list-area">
-<% @filtered_payments.each do |payment| %>
-      <div class="payback-list">
-        <div class="main">
-          <%=parse_amount(payment.amount) %> <%=payment.contract_id %> <%=parse_time(payment.created_at) %>
-        </div>
-      </div>
-<% end %>
-</div>
-</div>

@@ -4,7 +4,7 @@ class CreateContracts < ActiveRecord::Migration[5.2]
       t.bigint :friend_id
       t.bigint :user_id
       t.integer :amount
-      t.text :status
+      t.bigint :status_id
       t.text :note
       t.date :deadline
 
