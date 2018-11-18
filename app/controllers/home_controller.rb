@@ -71,6 +71,7 @@ class HomeController < ApplicationController
 
 
   def contract_list
+
     my_contracts=Contract.where(user_id: current_user.id)
     my_contracts =my_contracts.where.not(status_id: view_context.get_status_id_by_key("DELETED"))
     @contracts =my_contracts.order(deadline: :asc)
@@ -236,6 +237,7 @@ class HomeController < ApplicationController
       end
       render json: { friend_id: record.id, friends: friends, html: html}
     end
+
 
     def editFriend
       same_friends=Friend.where(name: params[:name])
