@@ -68,7 +68,7 @@ task :notice_task => :environment do
                 "contents": [
                   {
                     "type": "text",
-                    "text": "未回収のてがた",
+                    "text": "未回収の請求",
                     "size": "lg",
                     "weight": "bold"
                   },
