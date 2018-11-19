@@ -3,7 +3,7 @@
   <%= form_for Payment.new, remote: true do |f| %>
     <div class="form">
       <%= f.label :amount, "領収額" %>
-      <%= f.number_field :amount, :required => true, value: @contract.amount - @repaymentSum %>
+      <%= f.number_field :amount, :required => true, pattern: "[0-9]*", value: @contract.amount - @repaymentSum %>
     </div>
     <%= f.hidden_field :contract_id, value: @contract.id , :required => true %>
     <div class="form">
