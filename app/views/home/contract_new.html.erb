@@ -5,7 +5,7 @@
       <%= form_for Contract.new do |f| %>
       <div class="form">
         <%= f.label :amount, "貸付額" %>
-        <%= f.number_field :amount, id: "loaning_price", :required => true, value: @amount %>
+        <%= f.number_field :amount, id: "loaning_price", pattern: "[0-9]*", :required => true, value: @amount %>
       </div>
       <div class="form">
         <%= f.label :friend_id, "借り手" %>
